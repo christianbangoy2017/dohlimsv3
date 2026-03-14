@@ -72,7 +72,13 @@ class Menu{
 		array(
 			'path' => 'home', 
 			'label' => 'References', 
+			'icon' => '','submenu' => array(
+		array(
+			'path' => 'home/Index', 
+			'label' => 'References', 
 			'icon' => ''
+		)
+	)
 		),
 		
 		array(

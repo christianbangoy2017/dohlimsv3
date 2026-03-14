@@ -178,36 +178,6 @@ $redirect_to = $this->redirect_to;
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="form-group ">
-                                            <div class="row">
-                                                <div class="col-sm-4">
-                                                    <label class="control-label" for="approvedby_id">Approvedby Id </label>
-                                                </div>
-                                                <div class="col-sm-8">
-                                                    <div class="">
-                                                        <select  id="ctrl-approvedby_id" name="approvedby_id"  placeholder="Select a value ..."    class="custom-select" >
-                                                            <option value="">Select a value ...</option>
-                                                            <?php
-                                                            $rec = $data['approvedby_id'];
-                                                            $approvedby_id_options = $comp_model -> program_issuance_slips_approvedby_id_option_list();
-                                                            if(!empty($approvedby_id_options)){
-                                                            foreach($approvedby_id_options as $option){
-                                                            $value = (!empty($option['value']) ? $option['value'] : null);
-                                                            $label = (!empty($option['label']) ? $option['label'] : $value);
-                                                            $selected = ( $value == $rec ? 'selected' : null );
-                                                            ?>
-                                                            <option 
-                                                                <?php echo $selected; ?> value="<?php echo $value; ?>"><?php echo $label; ?>
-                                                            </option>
-                                                            <?php
-                                                            }
-                                                            }
-                                                            ?>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
                                         <input id="ctrl-encodedby_id"  value="<?php  echo $data['encodedby_id']; ?>" type="hidden" placeholder="Enter Encodedby Id"  required="" name="encodedby_id"  class="form-control " />
                                         </div>
                                         <div class="form-ajax-status"></div>

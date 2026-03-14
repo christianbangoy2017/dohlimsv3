@@ -123,7 +123,7 @@ $redirect_to = $this->redirect_to;
                                                         </td>
                                                         <td>
                                                             <div id="ctrl-qty_used-row<?php echo $row; ?>-holder" class="">
-                                                                <input id="ctrl-qty_used-row<?php echo $row; ?>"  value="<?php  echo $this->set_field_value('qty_used',"", $row); ?>" type="number" placeholder="Enter Qty Used" step="0.1" list="qty_used_list"  required="" name="row<?php echo $row ?>[qty_used]"  class="form-control " />
+                                                                <input id="ctrl-qty_used-row<?php echo $row; ?>"  value="<?php  echo $this->set_field_value('qty_used',"1", $row); ?>" type="number" placeholder="Enter Qty Used" step="0.1" list="qty_used_list"  required="" name="row<?php echo $row ?>[qty_used]"  class="form-control " />
                                                                     <datalist id="qty_used_list">
                                                                         <?php 
                                                                         $qty_used_options = $comp_model -> program_item_usage_qty_used_option_list();
@@ -255,7 +255,7 @@ $redirect_to = $this->redirect_to;
                                                                     </td>
                                                                     <td>
                                                                         <div id="ctrl-qty_used-row<?php echo $row; ?>-holder" class="">
-                                                                            <input id="ctrl-qty_used-row<?php echo $row; ?>"  value="<?php  echo $this->set_field_value('qty_used',"", $row); ?>" type="number" placeholder="Enter Qty Used" step="0.1" list="qty_used_list"  required="" name="row<?php echo $row ?>[qty_used]"  class="form-control " />
+                                                                            <input id="ctrl-qty_used-row<?php echo $row; ?>"  value="<?php  echo $this->set_field_value('qty_used',"1", $row); ?>" type="number" placeholder="Enter Qty Used" step="0.1" list="qty_used_list"  required="" name="row<?php echo $row ?>[qty_used]"  class="form-control " />
                                                                                 <datalist id="qty_used_list">
                                                                                     <?php 
                                                                                     $qty_used_options = $comp_model -> program_item_usage_qty_used_option_list();

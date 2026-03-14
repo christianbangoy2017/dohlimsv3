@@ -20,7 +20,7 @@ class ACL
 							'users' => array('userregister','accountedit','accountview'),
 							'vw_stock_movements_at_program' => array('list','view'),
 							'program_item_usage' => array('list','view','add','edit', 'editfield','delete'),
-							'program_issuance_slips' => array('list','view','add','edit', 'editfield','delete'),
+							'program_issuance_slips' => array('list','view','add','edit', 'editfield','delete','print'),
 							'clients' => array('list','view','add','edit', 'editfield','delete')
 						),
 		
@@ -36,7 +36,8 @@ class ACL
 							'users' => array('list','view','userregister','accountedit','accountview','add','edit', 'editfield','delete','import_data'),
 							'vw_stock_movements' => array('list','view'),
 							'batches_remaining' => array('list','view','add','edit', 'editfield','delete'),
-							'stock_movements_reasons' => array('list','view','add','edit', 'editfield','delete')
+							'stock_movements_reasons' => array('list','view','add','edit', 'editfield','delete'),
+							'program_issuance_slips' => array('print')
 						)
 		);
 

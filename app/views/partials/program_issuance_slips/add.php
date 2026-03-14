@@ -136,29 +136,6 @@ $redirect_to = $this->redirect_to;
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="form-group ">
-                                            <label class="control-label" for="approvedby_id">Approvedby Id </label>
-                                            <div id="ctrl-approvedby_id-holder" class=""> 
-                                                <select  id="ctrl-approvedby_id" name="approvedby_id"  placeholder="Select a value ..."    class="custom-select" >
-                                                    <option value="">Select a value ...</option>
-                                                    <?php 
-                                                    $approvedby_id_options = $comp_model -> program_issuance_slips_approvedby_id_option_list();
-                                                    if(!empty($approvedby_id_options)){
-                                                    foreach($approvedby_id_options as $option){
-                                                    $value = (!empty($option['value']) ? $option['value'] : null);
-                                                    $label = (!empty($option['label']) ? $option['label'] : $value);
-                                                    $selected = $this->set_field_selected('approvedby_id',$value, "");
-                                                    ?>
-                                                    <option <?php echo $selected; ?> value="<?php echo $value; ?>">
-                                                        <?php echo $label; ?>
-                                                    </option>
-                                                    <?php
-                                                    }
-                                                    }
-                                                    ?>
-                                                </select>
-                                            </div>
-                                        </div>
                                         <input id="ctrl-encodedby_id"  value="<?php echo USER_ID?>" type="hidden" placeholder="Enter Encodedby Id"  required="" name="encodedby_id"  class="form-control " />
                                         </div>
                                         <div class="form-group form-submit-btn-holder text-center mt-3">

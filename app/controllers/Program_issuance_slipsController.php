@@ -110,7 +110,6 @@ class Program_issuance_slipsController extends SecureController{
 			"program_issuance_slips.division", 
 			"program_issuance_slips.section", 
 			"program_issuance_slips.purpose", 
-			"program_issuance_slips.approvedby_id", 
 			"clients.name AS clients_name", 
 			"clients.address AS clients_address", 
 			"clients.contactnumber AS clients_contactnumber");
@@ -167,7 +166,6 @@ class Program_issuance_slipsController extends SecureController{
 				'purpose' => 'sanitize_string',
 				'division' => 'sanitize_string',
 				'section' => 'sanitize_string',
-				'approvedby_id' => 'sanitize_string',
 				'encodedby_id' => 'sanitize_string',
 			);
 			$this->filter_vals = true; //set whether to remove empty fields
@@ -215,7 +213,6 @@ class Program_issuance_slipsController extends SecureController{
 				'purpose' => 'sanitize_string',
 				'division' => 'sanitize_string',
 				'section' => 'sanitize_string',
-				'approvedby_id' => 'sanitize_string',
 				'encodedby_id' => 'sanitize_string',
 			);
 			$modeldata = $this->modeldata = $this->validate_form($postdata);
@@ -282,7 +279,6 @@ class Program_issuance_slipsController extends SecureController{
 				'purpose' => 'sanitize_string',
 				'division' => 'sanitize_string',
 				'section' => 'sanitize_string',
-				'approvedby_id' => 'sanitize_string',
 				'encodedby_id' => 'sanitize_string',
 			);
 			$this->filter_rules = true; //filter validation rules by excluding fields not in the formdata
@@ -338,5 +334,51 @@ class Program_issuance_slipsController extends SecureController{
 			$this->set_flash_msg($page_error, "danger");
 		}
 		return	$this->redirect("program_issuance_slips");
+	}
+	/**
+     * View record detail 
+	 * @param $rec_id (select record by table primary key) 
+     * @param $value value (select record by value of field name(rec_id))
+     * @return BaseView
+     */
+	function print($rec_id = null, $value = null){
+		$request = $this->request;
+		$db = $this->GetModel();
+		$rec_id = $this->rec_id = urldecode($rec_id);
+		$tablename = $this->tablename;
+		$fields = array("id", 
+			"slip_no", 
+			"issuance_date", 
+			"division", 
+			"section", 
+			"purpose", 
+			"approvedby_id", 
+			"encodedby_id", 
+			"created_at", 
+			"client_id");
+		if($value){
+			$db->where($rec_id, urldecode($value)); //select record based on field name
+		}
+		else{
+			$db->where("program_issuance_slips.id", $rec_id);; //select record based on primary key
+		}
+		$record = $db->getOne($tablename, $fields );
+		if($record){
+			$page_title = $this->view->page_title = "View  Program Issuance Slips";
+		$this->view->report_filename = date('Y-m-d') . '-' . $page_title;
+		$this->view->report_title = $page_title;
+		$this->view->report_layout = "report_layout.php";
+		$this->view->report_paper_size = "A4";
+		$this->view->report_orientation = "portrait";
+		}
+		else{
+			if($db->getLastError()){
+				$this->set_page_error();
+			}
+			else{
+				$this->set_page_error("No record found");
+			}
+		}
+		return $this->render_view("program_issuance_slips/print.php", $record);
 	}
 }

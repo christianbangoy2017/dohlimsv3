@@ -200,7 +200,7 @@ ORDER BY i.id DESC";
      */
 	function program_item_usage_program_issuance_slips_slip_no_option_list(){
 		$db = $this->GetModel();
-		$sqltext = "SELECT  DISTINCT slip_no AS value,slip_no AS label FROM program_issuance_slips ORDER BY slip_no DESC";
+		$sqltext = "SELECT DISTINCT issuance_id AS value , issuance_id AS label FROM program_item_usage ORDER BY label ASC";
 		$queryparams = null;
 		$arr = $db->rawQuery($sqltext, $queryparams);
 		return $arr;
@@ -255,24 +255,12 @@ ORDER BY i.id DESC";
 	}
 
 	/**
-     * program_issuance_slips_approvedby_id_option_list Model Action
-     * @return array
-     */
-	function program_issuance_slips_approvedby_id_option_list(){
-		$db = $this->GetModel();
-		$sqltext = "SELECT  DISTINCT id AS value, fullname AS label FROM users ORDER BY fullname ASC";
-		$queryparams = null;
-		$arr = $db->rawQuery($sqltext, $queryparams);
-		return $arr;
-	}
-
-	/**
      * program_issuance_slips_slip_no_option_list Model Action
      * @return array
      */
 	function program_issuance_slips_slip_no_option_list(){
 		$db = $this->GetModel();
-		$sqltext = "SELECT  DISTINCT slip_no AS value,slip_no AS label FROM program_issuance_slips ORDER BY slip_no DESC";
+		$sqltext = "SELECT DISTINCT issuance_id AS value , issuance_id AS label FROM program_item_usage ORDER BY label ASC";
 		$queryparams = null;
 		$arr = $db->rawQuery($sqltext, $queryparams);
 		return $arr;
@@ -285,6 +273,18 @@ ORDER BY i.id DESC";
 	function program_issuance_slips_client_id_option_list(){
 		$db = $this->GetModel();
 		$sqltext = "SELECT  DISTINCT id AS value,name AS label FROM clients ORDER BY name ASC";
+		$queryparams = null;
+		$arr = $db->rawQuery($sqltext, $queryparams);
+		return $arr;
+	}
+
+	/**
+     * program_issuance_slips_approvedby_id_option_list Model Action
+     * @return array
+     */
+	function program_issuance_slips_approvedby_id_option_list(){
+		$db = $this->GetModel();
+		$sqltext = "SELECT  DISTINCT id AS value, fullname AS label FROM users ORDER BY fullname ASC";
 		$queryparams = null;
 		$arr = $db->rawQuery($sqltext, $queryparams);
 		return $arr;

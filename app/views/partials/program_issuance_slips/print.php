@@ -25,7 +25,7 @@ $show_export_btn = $this->show_export_btn;
     if( $show_header == true ){
     ?>
     <div  class="bg-light p-3 mb-3">
-        <div class="container-fluid">
+        <div class="container">
             <div class="row ">
                 <div class="col ">
                     <h4 class="record-title">View  Program Issuance Slips</h4>
@@ -37,21 +37,7 @@ $show_export_btn = $this->show_export_btn;
     }
     ?>
     <div  class="">
-        <div class="container-fluid">
-            <div class="row ">
-                <div class="col-md-4 comp-grid">
-                    <a  class="btn btn-primary" href="<?php print_link("app/prints/issuance_slip_print.php?id=$data[id]") ?>">
-                        <i class="material-icons ">print</i>                                
-                        Print Issuance Slip 
-                    </a>
-                </div>
-                <div class="col-md-12 comp-grid">
-                </div>
-            </div>
-        </div>
-    </div>
-    <div  class="">
-        <div class="container-fluid">
+        <div class="container">
             <div class="row ">
                 <div class="col-md-12 comp-grid">
                     <?php $this :: display_page_errors(); ?>
@@ -161,17 +147,65 @@ $show_export_btn = $this->show_export_btn;
                                             </span>
                                         </td>
                                     </tr>
-                                    <tr  class="td-clients_name">
-                                        <th class="title"> Clients Name: </th>
-                                        <td class="value"> <?php echo $data['clients_name']; ?></td>
+                                    <tr  class="td-approvedby_id">
+                                        <th class="title"> Approvedby Id: </th>
+                                        <td class="value">
+                                            <span <?php if($can_edit){ ?> data-source='<?php print_link('api/json/program_issuance_slips_approvedby_id_option_list'); ?>' 
+                                                data-value="<?php echo $data['approvedby_id']; ?>" 
+                                                data-pk="<?php echo $data['id'] ?>" 
+                                                data-url="<?php print_link("program_issuance_slips/editfield/" . urlencode($data['id'])); ?>" 
+                                                data-name="approvedby_id" 
+                                                data-title="Enter Approvedby Id" 
+                                                data-placement="left" 
+                                                data-toggle="click" 
+                                                data-type="text" 
+                                                data-mode="popover" 
+                                                data-showbuttons="left" 
+                                                class="is-editable" <?php } ?>>
+                                                <?php echo $data['approvedby_id']; ?> 
+                                            </span>
+                                        </td>
                                     </tr>
-                                    <tr  class="td-clients_address">
-                                        <th class="title"> Clients Address: </th>
-                                        <td class="value"> <?php echo $data['clients_address']; ?></td>
+                                    <tr  class="td-encodedby_id">
+                                        <th class="title"> Encodedby Id: </th>
+                                        <td class="value">
+                                            <span <?php if($can_edit){ ?> data-value="<?php echo $data['encodedby_id']; ?>" 
+                                                data-pk="<?php echo $data['id'] ?>" 
+                                                data-url="<?php print_link("program_issuance_slips/editfield/" . urlencode($data['id'])); ?>" 
+                                                data-name="encodedby_id" 
+                                                data-title="Enter Encodedby Id" 
+                                                data-placement="left" 
+                                                data-toggle="click" 
+                                                data-type="text" 
+                                                data-mode="popover" 
+                                                data-showbuttons="left" 
+                                                class="is-editable" <?php } ?>>
+                                                <?php echo $data['encodedby_id']; ?> 
+                                            </span>
+                                        </td>
                                     </tr>
-                                    <tr  class="td-clients_contactnumber">
-                                        <th class="title"> Clients Contactnumber: </th>
-                                        <td class="value"> <?php echo $data['clients_contactnumber']; ?></td>
+                                    <tr  class="td-created_at">
+                                        <th class="title"> Created At: </th>
+                                        <td class="value"> <?php echo $data['created_at']; ?></td>
+                                    </tr>
+                                    <tr  class="td-client_id">
+                                        <th class="title"> Client Id: </th>
+                                        <td class="value">
+                                            <span <?php if($can_edit){ ?> data-source='<?php print_link('api/json/program_issuance_slips_client_id_option_list'); ?>' 
+                                                data-value="<?php echo $data['client_id']; ?>" 
+                                                data-pk="<?php echo $data['id'] ?>" 
+                                                data-url="<?php print_link("program_issuance_slips/editfield/" . urlencode($data['id'])); ?>" 
+                                                data-name="client_id" 
+                                                data-title="Select a value ..." 
+                                                data-placement="left" 
+                                                data-toggle="click" 
+                                                data-type="select" 
+                                                data-mode="popover" 
+                                                data-showbuttons="left" 
+                                                class="is-editable" <?php } ?>>
+                                                <?php echo $data['client_id']; ?> 
+                                            </span>
+                                        </td>
                                     </tr>
                                 </tbody>
                                 <!-- Table Body End -->
@@ -205,6 +239,16 @@ $show_export_btn = $this->show_export_btn;
                                                         </a>
                                                     </div>
                                                 </div>
+                                                <?php if($can_edit){ ?>
+                                                <a class="btn btn-sm btn-info"  href="<?php print_link("program_issuance_slips/edit/$rec_id"); ?>">
+                                                    <i class="material-icons">edit</i> Edit
+                                                </a>
+                                                <?php } ?>
+                                                <?php if($can_delete){ ?>
+                                                <a class="btn btn-sm btn-danger record-delete-btn mx-1"  href="<?php print_link("program_issuance_slips/delete/$rec_id/?csrf_token=$csrf_token&redirect=$current_page"); ?>" data-prompt-msg="Are you sure you want to delete this record?" data-display-style="modal">
+                                                    <i class="material-icons">clear</i> Delete
+                                                </a>
+                                                <?php } ?>
                                             </div>
                                             <?php
                                             }

@@ -282,7 +282,7 @@ class Program_item_usageController extends SecureController{
 				}
 			}
 		}
-		$page_title = $this->view->page_title = "Add New Program Item Usage";
+		$page_title = $this->view->page_title = "Add New Item";
 		return $this->render_view("program_item_usage/add.php");
 	}
 	/**
