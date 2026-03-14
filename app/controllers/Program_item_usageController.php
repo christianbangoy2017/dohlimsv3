@@ -22,11 +22,11 @@ class Program_item_usageController extends SecureController{
 			"program_item_usage.issuance_id", 
 			"program_item_usage.usage_date", 
 			"items.item_name AS items_item_name", 
-			"items.generic_name AS items_generic_name", 
 			"program_item_usage.qty_used", 
 			"program_item_usage.remarks", 
 			"program_issuance_slips.slip_no AS program_issuance_slips_slip_no", 
 			"clients.name AS clients_name", 
+			"clients.address AS clients_address", 
 			"program_issuance_slips.purpose AS program_issuance_slips_purpose", 
 			"batches.expiry_date AS batches_expiry_date");
 		$pagination = $this->get_pagination(MAX_RECORD_COUNT); // get current pagination e.g array(page_number, page_limit)
@@ -39,34 +39,22 @@ class Program_item_usageController extends SecureController{
 				program_item_usage.usage_date LIKE ? OR 
 				program_item_usage.program_manager_id LIKE ? OR 
 				program_item_usage.item_id LIKE ? OR 
-				items.item_name LIKE ? OR 
-				items.generic_name LIKE ? OR 
 				program_item_usage.batch_id LIKE ? OR 
+				items.item_name LIKE ? OR 
 				program_item_usage.qty_used LIKE ? OR 
 				program_item_usage.remarks LIKE ? OR 
 				program_item_usage.stock_movement_id LIKE ? OR 
+				program_issuance_slips.slip_no LIKE ? OR 
 				program_item_usage.created_at LIKE ? OR 
 				program_item_usage.updated_at LIKE ? OR 
 				program_item_usage.encodedby_id LIKE ? OR 
-				items.id LIKE ? OR 
-				items.item_code LIKE ? OR 
-				items.category_id LIKE ? OR 
-				items.unit_of_measure LIKE ? OR 
-				items.min_stock_level LIKE ? OR 
-				items.is_active LIKE ? OR 
-				items.created_at LIKE ? OR 
-				items.updated_at LIKE ? OR 
-				items.deleted_at LIKE ? OR 
-				items.is_deleted LIKE ? OR 
-				items.encodedby_id LIKE ? OR 
-				items.itemname_generic LIKE ? OR 
 				batches.id LIKE ? OR 
 				batches.item_id LIKE ? OR 
-				program_issuance_slips.slip_no LIKE ? OR 
-				clients.name LIKE ? OR 
-				program_issuance_slips.purpose LIKE ? OR 
 				batches.supplier_id LIKE ? OR 
 				batches.batch_number LIKE ? OR 
+				clients.name LIKE ? OR 
+				clients.address LIKE ? OR 
+				program_issuance_slips.purpose LIKE ? OR 
 				batches.expiry_date LIKE ? OR 
 				batches.received_date LIKE ? OR 
 				batches.initial_quantity LIKE ? OR 
@@ -84,12 +72,24 @@ class Program_item_usageController extends SecureController{
 				program_issuance_slips.created_at LIKE ? OR 
 				program_issuance_slips.client_id LIKE ? OR 
 				clients.id LIKE ? OR 
-				clients.address LIKE ? OR 
 				clients.contactnumber LIKE ? OR 
 				clients.isactive LIKE ? OR 
 				clients.encodedby_id LIKE ? OR 
 				clients.created_at LIKE ? OR 
-				clients.updated_at LIKE ?
+				clients.updated_at LIKE ? OR 
+				items.id LIKE ? OR 
+				items.item_code LIKE ? OR 
+				items.generic_name LIKE ? OR 
+				items.category_id LIKE ? OR 
+				items.unit_of_measure LIKE ? OR 
+				items.min_stock_level LIKE ? OR 
+				items.is_active LIKE ? OR 
+				items.created_at LIKE ? OR 
+				items.updated_at LIKE ? OR 
+				items.deleted_at LIKE ? OR 
+				items.is_deleted LIKE ? OR 
+				items.encodedby_id LIKE ? OR 
+				items.itemname_generic LIKE ?
 			)";
 			$search_params = array(
 				"%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%"
@@ -99,10 +99,10 @@ class Program_item_usageController extends SecureController{
 			 //template to use when ajax search
 			$this->view->search_template = "program_item_usage/search.php";
 		}
-		$db->join("items", "program_item_usage.item_id = items.id", "LEFT");
 		$db->join("batches", "program_item_usage.batch_id = batches.id", "LEFT");
 		$db->join("program_issuance_slips", "program_item_usage.issuance_id = program_issuance_slips.id", "LEFT");
 		$db->join("clients", "program_issuance_slips.client_id = clients.id", "LEFT");
+		$db->join("items", "batches.item_id = items.id", "LEFT");
 		if(!empty($request->orderby)){
 			$orderby = $request->orderby;
 			$ordertype = (!empty($request->ordertype) ? $request->ordertype : ORDER_TYPE);
@@ -160,20 +160,6 @@ class Program_item_usageController extends SecureController{
 			"program_item_usage.updated_at", 
 			"program_item_usage.issuance_id", 
 			"program_item_usage.encodedby_id", 
-			"items.id AS items_id", 
-			"items.item_code AS items_item_code", 
-			"items.item_name AS items_item_name", 
-			"items.generic_name AS items_generic_name", 
-			"items.category_id AS items_category_id", 
-			"items.unit_of_measure AS items_unit_of_measure", 
-			"items.min_stock_level AS items_min_stock_level", 
-			"items.is_active AS items_is_active", 
-			"items.created_at AS items_created_at", 
-			"items.updated_at AS items_updated_at", 
-			"items.deleted_at AS items_deleted_at", 
-			"items.is_deleted AS items_is_deleted", 
-			"items.encodedby_id AS items_encodedby_id", 
-			"items.itemname_generic AS items_itemname_generic", 
 			"batches.id AS batches_id", 
 			"batches.item_id AS batches_item_id", 
 			"batches.supplier_id AS batches_supplier_id", 
@@ -203,17 +189,31 @@ class Program_item_usageController extends SecureController{
 			"clients.isactive AS clients_isactive", 
 			"clients.encodedby_id AS clients_encodedby_id", 
 			"clients.created_at AS clients_created_at", 
-			"clients.updated_at AS clients_updated_at");
+			"clients.updated_at AS clients_updated_at", 
+			"items.id AS items_id", 
+			"items.item_code AS items_item_code", 
+			"items.item_name AS items_item_name", 
+			"items.generic_name AS items_generic_name", 
+			"items.category_id AS items_category_id", 
+			"items.unit_of_measure AS items_unit_of_measure", 
+			"items.min_stock_level AS items_min_stock_level", 
+			"items.is_active AS items_is_active", 
+			"items.created_at AS items_created_at", 
+			"items.updated_at AS items_updated_at", 
+			"items.deleted_at AS items_deleted_at", 
+			"items.is_deleted AS items_is_deleted", 
+			"items.encodedby_id AS items_encodedby_id", 
+			"items.itemname_generic AS items_itemname_generic");
 		if($value){
 			$db->where($rec_id, urldecode($value)); //select record based on field name
 		}
 		else{
 			$db->where("program_item_usage.id", $rec_id);; //select record based on primary key
 		}
-		$db->join("items", "program_item_usage.item_id = items.id", "LEFT ");
 		$db->join("batches", "program_item_usage.batch_id = batches.id", "LEFT ");
 		$db->join("program_issuance_slips", "program_item_usage.issuance_id = program_issuance_slips.id", "LEFT ");
-		$db->join("clients", "program_issuance_slips.client_id = clients.id", "LEFT ");  
+		$db->join("clients", "program_issuance_slips.client_id = clients.id", "LEFT ");
+		$db->join("items", "batches.item_id = items.id", "LEFT ");  
 		$record = $db->getOne($tablename, $fields );
 		if($record){
 			$page_title = $this->view->page_title = "View  Program Item Usage";
@@ -234,28 +234,27 @@ class Program_item_usageController extends SecureController{
 		return $this->render_view("program_item_usage/view.php", $record);
 	}
 	/**
-     * Insert new record to the database table
+     * Insert multiple record into the database table
 	 * @param $formdata array() from $_POST
      * @return BaseView
      */
 	function add($formdata = null){
 		if($formdata){
+			$request = $this->request;
 			$db = $this->GetModel();
 			$tablename = $this->tablename;
 			$request = $this->request;
 			//fillable fields
-			$fields = $this->fields = array("issuance_id","usage_date","program_manager_id","item_id","batch_id","qty_used","remarks","stock_movement_id","encodedby_id");
-			$postdata = $this->format_request_data($formdata);
+			$fields = $this->fields = array("issuance_id","usage_date","program_manager_id","item_id","batch_id","qty_used","remarks","stock_movement_id","encodedby_id"); 
+			$allpostdata = $this->format_multi_request_data($formdata);
+			$allmodeldata = array();
+			foreach($allpostdata as &$postdata){
 			$this->rules_array = array(
-				'issuance_id' => 'required|numeric',
+				'issuance_id' => 'required',
 				'usage_date' => 'required',
-				'program_manager_id' => 'required',
-				'item_id' => 'required',
 				'batch_id' => 'required',
 				'qty_used' => 'required|numeric',
-				'remarks' => 'required',
-				'stock_movement_id' => 'required',
-				'encodedby_id' => 'required|numeric',
+				'encodedby_id' => 'required',
 			);
 			$this->sanitize_array = array(
 				'issuance_id' => 'sanitize_string',
@@ -270,19 +269,21 @@ class Program_item_usageController extends SecureController{
 			);
 			$this->filter_vals = true; //set whether to remove empty fields
 			$modeldata = $this->modeldata = $this->validate_form($postdata);
+				$allmodeldata[] = $modeldata;
+			}
 			if($this->validated()){
-				$rec_id = $this->rec_id = $db->insert($tablename, $modeldata);
+				$rec_id = $this->rec_id = $db->insertMulti($tablename, $allmodeldata);
 				if($rec_id){
 					$this->set_flash_msg("Record added successfully", "success");
 					return	$this->redirect("program_item_usage");
 				}
 				else{
-					$this->set_page_error();
+					$this->set_page_error(); //check if there's any db error and pass it to the view
 				}
 			}
 		}
 		$page_title = $this->view->page_title = "Add New Program Item Usage";
-		$this->render_view("program_item_usage/add.php");
+		return $this->render_view("program_item_usage/add.php");
 	}
 	/**
      * Update table record with formdata
@@ -300,15 +301,11 @@ class Program_item_usageController extends SecureController{
 		if($formdata){
 			$postdata = $this->format_request_data($formdata);
 			$this->rules_array = array(
-				'issuance_id' => 'required|numeric',
+				'issuance_id' => 'required',
 				'usage_date' => 'required',
-				'program_manager_id' => 'required',
-				'item_id' => 'required',
 				'batch_id' => 'required',
 				'qty_used' => 'required|numeric',
-				'remarks' => 'required',
-				'stock_movement_id' => 'required',
-				'encodedby_id' => 'required|numeric',
+				'encodedby_id' => 'required',
 			);
 			$this->sanitize_array = array(
 				'issuance_id' => 'sanitize_string',
@@ -372,15 +369,11 @@ class Program_item_usageController extends SecureController{
 			$postdata[$fieldname] = $fieldvalue;
 			$postdata = $this->format_request_data($postdata);
 			$this->rules_array = array(
-				'issuance_id' => 'required|numeric',
+				'issuance_id' => 'required',
 				'usage_date' => 'required',
-				'program_manager_id' => 'required',
-				'item_id' => 'required',
 				'batch_id' => 'required',
 				'qty_used' => 'required|numeric',
-				'remarks' => 'required',
-				'stock_movement_id' => 'required',
-				'encodedby_id' => 'required|numeric',
+				'encodedby_id' => 'required',
 			);
 			$this->sanitize_array = array(
 				'issuance_id' => 'sanitize_string',

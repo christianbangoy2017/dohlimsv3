@@ -166,51 +166,6 @@ $show_export_btn = $this->show_export_btn;
                                             </span>
                                         </td>
                                     </tr>
-                                    <tr  class="td-encodedby_id">
-                                        <th class="title"> Encodedby Id: </th>
-                                        <td class="value">
-                                            <span <?php if($can_edit){ ?> data-value="<?php echo $data['encodedby_id']; ?>" 
-                                                data-pk="<?php echo $data['id'] ?>" 
-                                                data-url="<?php print_link("program_issuance_slips/editfield/" . urlencode($data['id'])); ?>" 
-                                                data-name="encodedby_id" 
-                                                data-title="Enter Encodedby Id" 
-                                                data-placement="left" 
-                                                data-toggle="click" 
-                                                data-type="text" 
-                                                data-mode="popover" 
-                                                data-showbuttons="left" 
-                                                class="is-editable" <?php } ?>>
-                                                <?php echo $data['encodedby_id']; ?> 
-                                            </span>
-                                        </td>
-                                    </tr>
-                                    <tr  class="td-created_at">
-                                        <th class="title"> Created At: </th>
-                                        <td class="value"> <?php echo $data['created_at']; ?></td>
-                                    </tr>
-                                    <tr  class="td-client_id">
-                                        <th class="title"> Client Id: </th>
-                                        <td class="value">
-                                            <span <?php if($can_edit){ ?> data-source='<?php print_link('api/json/program_issuance_slips_client_id_option_list'); ?>' 
-                                                data-value="<?php echo $data['client_id']; ?>" 
-                                                data-pk="<?php echo $data['id'] ?>" 
-                                                data-url="<?php print_link("program_issuance_slips/editfield/" . urlencode($data['id'])); ?>" 
-                                                data-name="client_id" 
-                                                data-title="Select a value ..." 
-                                                data-placement="left" 
-                                                data-toggle="click" 
-                                                data-type="select" 
-                                                data-mode="popover" 
-                                                data-showbuttons="left" 
-                                                class="is-editable" <?php } ?>>
-                                                <?php echo $data['client_id']; ?> 
-                                            </span>
-                                        </td>
-                                    </tr>
-                                    <tr  class="td-clients_id">
-                                        <th class="title"> Clients Id: </th>
-                                        <td class="value"> <?php echo $data['clients_id']; ?></td>
-                                    </tr>
                                     <tr  class="td-clients_name">
                                         <th class="title"> Clients Name: </th>
                                         <td class="value"> <?php echo $data['clients_name']; ?></td>
@@ -222,22 +177,6 @@ $show_export_btn = $this->show_export_btn;
                                     <tr  class="td-clients_contactnumber">
                                         <th class="title"> Clients Contactnumber: </th>
                                         <td class="value"> <?php echo $data['clients_contactnumber']; ?></td>
-                                    </tr>
-                                    <tr  class="td-clients_isactive">
-                                        <th class="title"> Clients Isactive: </th>
-                                        <td class="value"> <?php echo $data['clients_isactive']; ?></td>
-                                    </tr>
-                                    <tr  class="td-clients_encodedby_id">
-                                        <th class="title"> Clients Encodedby Id: </th>
-                                        <td class="value"> <?php echo $data['clients_encodedby_id']; ?></td>
-                                    </tr>
-                                    <tr  class="td-clients_created_at">
-                                        <th class="title"> Clients Created At: </th>
-                                        <td class="value"> <?php echo $data['clients_created_at']; ?></td>
-                                    </tr>
-                                    <tr  class="td-clients_updated_at">
-                                        <th class="title"> Clients Updated At: </th>
-                                        <td class="value"> <?php echo $data['clients_updated_at']; ?></td>
                                     </tr>
                                 </tbody>
                                 <!-- Table Body End -->

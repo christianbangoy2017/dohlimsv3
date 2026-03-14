@@ -155,6 +155,22 @@ ORDER BY program_name ASC";
 	}
 
 	/**
+     * program_item_usage_issuance_id_option_list Model Action
+     * @return array
+     */
+	function program_item_usage_issuance_id_option_list(){
+		$db = $this->GetModel();
+		$sqltext = "SELECT  DISTINCT i.id AS value,
+concat(slip_no,'; ', name) AS label
+FROM program_issuance_slips i
+  inner join clients c on i.client_id =c.id
+ORDER BY i.id DESC";
+		$queryparams = null;
+		$arr = $db->rawQuery($sqltext, $queryparams);
+		return $arr;
+	}
+
+	/**
      * program_item_usage_usage_date_option_list Model Action
      * @return array
      */
@@ -184,7 +200,7 @@ ORDER BY program_name ASC";
      */
 	function program_item_usage_program_issuance_slips_slip_no_option_list(){
 		$db = $this->GetModel();
-		$sqltext = "SELECT DISTINCT issuance_id AS value , issuance_id AS label FROM program_item_usage ORDER BY label ASC";
+		$sqltext = "SELECT  DISTINCT slip_no AS value,slip_no AS label FROM program_issuance_slips ORDER BY slip_no DESC";
 		$queryparams = null;
 		$arr = $db->rawQuery($sqltext, $queryparams);
 		return $arr;
@@ -208,7 +224,7 @@ ORDER BY program_name ASC";
      */
 	function program_item_usage_batch_id_option_list(){
 		$db = $this->GetModel();
-		$sqltext = "SELECT DISTINCT stock_movement_id AS value , stock_movement_id AS label FROM program_item_usage ORDER BY label ASC";
+		$sqltext = "SELECT s.batch_id AS value, upper(concat(s.item_name,'; ',lpad(s.item_code,10,' '),' QTY: ', b.remainingqty,'; expiry_date: ', s.expiry_date)) label FROM vw_stock_movements_at_program s INNER JOIN batches_remaining b ON s.batch_id=b.batch_id Order By s.item_name";
 		$queryparams = null;
 		$arr = $db->rawQuery($sqltext, $queryparams);
 		return $arr;
@@ -251,6 +267,18 @@ ORDER BY program_name ASC";
 	}
 
 	/**
+     * program_issuance_slips_slip_no_option_list Model Action
+     * @return array
+     */
+	function program_issuance_slips_slip_no_option_list(){
+		$db = $this->GetModel();
+		$sqltext = "SELECT  DISTINCT slip_no AS value,slip_no AS label FROM program_issuance_slips ORDER BY slip_no DESC";
+		$queryparams = null;
+		$arr = $db->rawQuery($sqltext, $queryparams);
+		return $arr;
+	}
+
+	/**
      * program_issuance_slips_client_id_option_list Model Action
      * @return array
      */
@@ -263,15 +291,35 @@ ORDER BY program_name ASC";
 	}
 
 	/**
-     * program_issuance_slips_slip_no_option_list Model Action
-     * @return array
+     * getcount_issuanceslips Model Action
+     * @return Value
      */
-	function program_issuance_slips_slip_no_option_list(){
+	function getcount_issuanceslips(){
 		$db = $this->GetModel();
-		$sqltext = "SELECT DISTINCT issuance_id AS value , issuance_id AS label FROM program_item_usage ORDER BY label ASC";
+		$sqltext = "SELECT COUNT(*) AS num FROM program_issuance_slips";
 		$queryparams = null;
-		$arr = $db->rawQuery($sqltext, $queryparams);
-		return $arr;
+		$val = $db->rawQueryValue($sqltext, $queryparams);
+		
+		if(is_array($val)){
+			return $val[0];
+		}
+		return $val;
+	}
+
+	/**
+     * getcount_clients Model Action
+     * @return Value
+     */
+	function getcount_clients(){
+		$db = $this->GetModel();
+		$sqltext = "SELECT COUNT(*) AS num FROM clients";
+		$queryparams = null;
+		$val = $db->rawQueryValue($sqltext, $queryparams);
+		
+		if(is_array($val)){
+			return $val[0];
+		}
+		return $val;
 	}
 
 	/**

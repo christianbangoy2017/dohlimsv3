@@ -29,71 +29,51 @@ $redirect_to = $this->redirect_to;
                 <div class="col-md-7 comp-grid">
                     <?php $this :: display_page_errors(); ?>
                     <div  class="bg-light p-3 animated fadeIn page-content">
-                        <form id="program_item_usage-add-form" role="form" novalidate enctype="multipart/form-data" class="form page-form form-horizontal needs-validation" action="<?php print_link("program_item_usage/add?csrf_token=$csrf_token") ?>" method="post">
+                        <form id="program_item_usage-add-form"  novalidate role="form" enctype="multipart/form-data" class="form multi-form page-form" action="<?php print_link("program_item_usage/add?csrf_token=$csrf_token") ?>" method="post" >
                             <div>
-                                <div class="form-group ">
-                                    <div class="row">
-                                        <div class="col-sm-4">
-                                            <label class="control-label" for="issuance_id">Issuance Id <span class="text-danger">*</span></label>
-                                        </div>
-                                        <div class="col-sm-8">
-                                            <div class="">
-                                                <input id="ctrl-issuance_id"  value="<?php  echo $this->set_field_value('issuance_id',""); ?>" type="number" placeholder="Enter Issuance Id" step="1"  required="" name="issuance_id"  class="form-control " />
+                                <table class="table table-striped table-sm" data-maxrow="10" data-minrow="1">
+                                    <thead>
+                                        <tr>
+                                            <th class="bg-light"><label for="issuance_id">Issuance Id</label></th>
+                                            <th class="bg-light"><label for="batch_id">Batch Id</label></th>
+                                            <th class="bg-light"><label for="qty_used">Qty Used</label></th>
+                                            <th class="bg-light"><label for="remarks">Remarks</label></th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php 
+                                        for( $row = 1; $row <= 1; $row++ ){
+                                        ?>
+                                        <tr class="input-row">
+                                            <td>
+                                                <div id="ctrl-issuance_id-row<?php echo $row; ?>-holder" class="">
+                                                    <select required=""  id="ctrl-issuance_id-row<?php echo $row; ?>" name="row<?php echo $row ?>[issuance_id]"  placeholder="Select a value ..."    class="custom-select" >
+                                                        <option value="">Select a value ...</option>
+                                                        <?php 
+                                                        $issuance_id_options = $comp_model -> program_item_usage_issuance_id_option_list();
+                                                        if(!empty($issuance_id_options)){
+                                                        foreach($issuance_id_options as $option){
+                                                        $value = (!empty($option['value']) ? $option['value'] : null);
+                                                        $label = (!empty($option['label']) ? $option['label'] : $value);
+                                                        $selected = $this->set_field_selected('issuance_id',$value, "");
+                                                        ?>
+                                                        <option <?php echo $selected; ?> value="<?php echo $value; ?>">
+                                                            <?php echo $label; ?>
+                                                        </option>
+                                                        <?php
+                                                        }
+                                                        }
+                                                        ?>
+                                                    </select>
                                                 </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group ">
-                                        <div class="row">
-                                            <div class="col-sm-4">
-                                                <label class="control-label" for="usage_date">Usage Date <span class="text-danger">*</span></label>
-                                            </div>
-                                            <div class="col-sm-8">
-                                                <div class="input-group">
-                                                    <input id="ctrl-usage_date" class="form-control datepicker  datepicker"  required="" value="<?php  echo $this->set_field_value('usage_date',date_now()); ?>" type="datetime" name="usage_date" placeholder="Enter Usage Date" data-enable-time="false" data-min-date="" data-max-date="" data-date-format="Y-m-d" data-alt-format="F j, Y" data-inline="false" data-no-calendar="false" data-mode="single" />
-                                                        <div class="input-group-append">
-                                                            <span class="input-group-text"><i class="material-icons">date_range</i></span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <input id="ctrl-program_manager_id"  value="<?php  echo $this->set_field_value('program_manager_id',""); ?>" type="hidden" placeholder="Enter Program Manager Id"  required="" name="program_manager_id"  class="form-control " />
-                                            <div class="form-group ">
-                                                <div class="row">
-                                                    <div class="col-sm-4">
-                                                        <label class="control-label" for="item_id">Item Id <span class="text-danger">*</span></label>
-                                                    </div>
-                                                    <div class="col-sm-8">
-                                                        <div class="">
-                                                            <select required=""  id="ctrl-item_id" name="item_id"  placeholder="Select a value ..."    class="custom-select" >
-                                                                <option value="">Select a value ...</option>
-                                                                <?php 
-                                                                $item_id_options = $comp_model -> program_item_usage_item_id_option_list();
-                                                                if(!empty($item_id_options)){
-                                                                foreach($item_id_options as $option){
-                                                                $value = (!empty($option['value']) ? $option['value'] : null);
-                                                                $label = (!empty($option['label']) ? $option['label'] : $value);
-                                                                $selected = $this->set_field_selected('item_id',$value, "");
-                                                                ?>
-                                                                <option <?php echo $selected; ?> value="<?php echo $value; ?>">
-                                                                    <?php echo $label; ?>
-                                                                </option>
-                                                                <?php
-                                                                }
-                                                                }
-                                                                ?>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <input id="ctrl-batch_id"  value="<?php  echo $this->set_field_value('batch_id',""); ?>" type="hidden" placeholder="Enter Batch Id" list="batch_id_list"  required="" name="batch_id"  class="form-control " />
-                                                <datalist id="batch_id_list">
+                                            </td>
+                                            <input id="ctrl-usage_date-row<?php echo $row; ?>"  value="<?php  echo $this->set_field_value('usage_date',date_now(), $row); ?>" type="hidden" placeholder="Enter Usage Date" list="usage_date_list"  required="" name="row<?php echo $row ?>[usage_date]"  class="form-control " />
+                                                <datalist id="usage_date_list">
                                                     <?php 
-                                                    $batch_id_options = $comp_model -> program_item_usage_batch_id_option_list();
-                                                    if(!empty($batch_id_options)){
-                                                    foreach($batch_id_options as $option){
+                                                    $usage_date_options = $comp_model -> program_item_usage_usage_date_option_list();
+                                                    if(!empty($usage_date_options)){
+                                                    foreach($usage_date_options as $option){
                                                     $value = (!empty($option['value']) ? $option['value'] : null);
                                                     $label = (!empty($option['label']) ? $option['label'] : $value);
                                                     ?>
@@ -103,14 +83,47 @@ $redirect_to = $this->redirect_to;
                                                     }
                                                     ?>
                                                 </datalist>
-                                                <div class="form-group ">
-                                                    <div class="row">
-                                                        <div class="col-sm-4">
-                                                            <label class="control-label" for="qty_used">Qty Used <span class="text-danger">*</span></label>
-                                                        </div>
-                                                        <div class="col-sm-8">
-                                                            <div class="">
-                                                                <input id="ctrl-qty_used"  value="<?php  echo $this->set_field_value('qty_used',""); ?>" type="number" placeholder="Enter Qty Used" step="0.1" list="qty_used_list"  required="" name="qty_used"  class="form-control " />
+                                                <input id="ctrl-program_manager_id-row<?php echo $row; ?>"  value="<?php  echo $this->set_field_value('program_manager_id',"", $row); ?>" type="hidden" placeholder="Enter Program Manager Id"  name="row<?php echo $row ?>[program_manager_id]"  class="form-control " />
+                                                    <input id="ctrl-item_id-row<?php echo $row; ?>"  value="<?php  echo $this->set_field_value('item_id',"", $row); ?>" type="hidden" placeholder="Enter Item Id" list="item_id_list"  name="row<?php echo $row ?>[item_id]"  class="form-control " />
+                                                        <datalist id="item_id_list">
+                                                            <?php 
+                                                            $item_id_options = $comp_model -> program_item_usage_item_id_option_list();
+                                                            if(!empty($item_id_options)){
+                                                            foreach($item_id_options as $option){
+                                                            $value = (!empty($option['value']) ? $option['value'] : null);
+                                                            $label = (!empty($option['label']) ? $option['label'] : $value);
+                                                            ?>
+                                                            <option value="<?php echo $value; ?>"><?php echo $label; ?></option>
+                                                            <?php
+                                                            }
+                                                            }
+                                                            ?>
+                                                        </datalist>
+                                                        <td>
+                                                            <div id="ctrl-batch_id-row<?php echo $row; ?>-holder" class="">
+                                                                <select required=""  id="ctrl-batch_id-row<?php echo $row; ?>" name="row<?php echo $row ?>[batch_id]"  placeholder="Select a value ..."    class="custom-select" >
+                                                                    <option value="">Select a value ...</option>
+                                                                    <?php 
+                                                                    $batch_id_options = $comp_model -> program_item_usage_batch_id_option_list();
+                                                                    if(!empty($batch_id_options)){
+                                                                    foreach($batch_id_options as $option){
+                                                                    $value = (!empty($option['value']) ? $option['value'] : null);
+                                                                    $label = (!empty($option['label']) ? $option['label'] : $value);
+                                                                    $selected = $this->set_field_selected('batch_id',$value, "");
+                                                                    ?>
+                                                                    <option <?php echo $selected; ?> value="<?php echo $value; ?>">
+                                                                        <?php echo $label; ?>
+                                                                    </option>
+                                                                    <?php
+                                                                    }
+                                                                    }
+                                                                    ?>
+                                                                </select>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div id="ctrl-qty_used-row<?php echo $row; ?>-holder" class="">
+                                                                <input id="ctrl-qty_used-row<?php echo $row; ?>"  value="<?php  echo $this->set_field_value('qty_used',"", $row); ?>" type="number" placeholder="Enter Qty Used" step="0.1" list="qty_used_list"  required="" name="row<?php echo $row ?>[qty_used]"  class="form-control " />
                                                                     <datalist id="qty_used_list">
                                                                         <?php 
                                                                         $qty_used_options = $comp_model -> program_item_usage_qty_used_option_list();
@@ -126,47 +139,156 @@ $redirect_to = $this->redirect_to;
                                                                         ?>
                                                                     </datalist>
                                                                 </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group ">
-                                                        <div class="row">
-                                                            <div class="col-sm-4">
-                                                                <label class="control-label" for="remarks">Remarks <span class="text-danger">*</span></label>
-                                                            </div>
-                                                            <div class="col-sm-8">
-                                                                <div class="">
-                                                                    <textarea placeholder="Enter Remarks" id="ctrl-remarks"  required="" rows="5" name="remarks" class=" form-control"><?php  echo $this->set_field_value('remarks',""); ?></textarea>
+                                                            </td>
+                                                            <td>
+                                                                <div id="ctrl-remarks-row<?php echo $row; ?>-holder" class="">
+                                                                    <textarea placeholder="Enter Remarks" id="ctrl-remarks-row<?php echo $row; ?>"  rows="5" name="row<?php echo $row ?>[remarks]" class=" form-control"><?php  echo $this->set_field_value('remarks',"", $row); ?></textarea>
                                                                     <!--<div class="invalid-feedback animated bounceIn text-center">Please enter text</div>-->
                                                                 </div>
-                                                            </div>
-                                                        </div>
+                                                            </td>
+                                                            <input id="ctrl-stock_movement_id-row<?php echo $row; ?>"  value="<?php  echo $this->set_field_value('stock_movement_id',"", $row); ?>" type="hidden" placeholder="Enter Stock Movement Id"  name="row<?php echo $row ?>[stock_movement_id]"  class="form-control " />
+                                                                <input id="ctrl-encodedby_id-row<?php echo $row; ?>"  value="<?php echo USER_ID?>" type="hidden" placeholder="Enter Encodedby Id"  required="" name="row<?php echo $row ?>[encodedby_id]"  class="form-control " />
+                                                                    <th class="text-center">
+                                                                        <button type="button" class="close btn-remove-table-row">&times;</button>
+                                                                    </th>
+                                                                </tr>
+                                                                <?php 
+                                                                }
+                                                                ?>
+                                                            </tbody>
+                                                            <tfoot>
+                                                                <tr>
+                                                                    <th colspan="100" class="text-right">
+                                                                        <?php $template_id = "table-row-" . random_str(); ?>
+                                                                        <button type="button" data-template="#<?php echo $template_id ?>" class="btn btn-sm btn-light btn-add-table-row"><i class="material-icons">add</i></button>
+                                                                    </th>
+                                                                </tr>
+                                                            </tfoot>
+                                                        </table>
                                                     </div>
-                                                    <input id="ctrl-stock_movement_id"  value="<?php  echo $this->set_field_value('stock_movement_id',""); ?>" type="hidden" placeholder="Enter Stock Movement Id"  required="" name="stock_movement_id"  class="form-control " />
-                                                        <div class="form-group ">
-                                                            <div class="row">
-                                                                <div class="col-sm-4">
-                                                                    <label class="control-label" for="encodedby_id">Encodedby Id <span class="text-danger">*</span></label>
-                                                                </div>
-                                                                <div class="col-sm-8">
-                                                                    <div class="">
-                                                                        <input id="ctrl-encodedby_id"  value="<?php  echo $this->set_field_value('encodedby_id',""); ?>" type="number" placeholder="Enter Encodedby Id" step="1"  required="" name="encodedby_id"  class="form-control " />
+                                                    <div class="form-group form-submit-btn-holder text-center mt-3">
+                                                        <div class="form-ajax-status"></div>
+                                                        <button class="btn btn-primary" type="submit">
+                                                            Submit
+                                                            <i class="material-icons">send</i>
+                                                        </button>
+                                                    </div>
+                                                </form>
+                                                <!--[table row template]-->
+                                                <template id="<?php echo $template_id ?>">
+                                                    <tr class="input-row">
+                                                        <?php $row = 1; ?>
+                                                        <td>
+                                                            <div id="ctrl-issuance_id-row<?php echo $row; ?>-holder" class="">
+                                                                <select required=""  id="ctrl-issuance_id-row<?php echo $row; ?>" name="row<?php echo $row ?>[issuance_id]"  placeholder="Select a value ..."    class="custom-select" >
+                                                                    <option value="">Select a value ...</option>
+                                                                    <?php 
+                                                                    $issuance_id_options = $comp_model -> program_item_usage_issuance_id_option_list();
+                                                                    if(!empty($issuance_id_options)){
+                                                                    foreach($issuance_id_options as $option){
+                                                                    $value = (!empty($option['value']) ? $option['value'] : null);
+                                                                    $label = (!empty($option['label']) ? $option['label'] : $value);
+                                                                    $selected = $this->set_field_selected('issuance_id',$value, "");
+                                                                    ?>
+                                                                    <option <?php echo $selected; ?> value="<?php echo $value; ?>">
+                                                                        <?php echo $label; ?>
+                                                                    </option>
+                                                                    <?php
+                                                                    }
+                                                                    }
+                                                                    ?>
+                                                                </select>
+                                                            </div>
+                                                        </td>
+                                                        <input id="ctrl-usage_date-row<?php echo $row; ?>"  value="<?php  echo $this->set_field_value('usage_date',date_now(), $row); ?>" type="hidden" placeholder="Enter Usage Date" list="usage_date_list"  required="" name="row<?php echo $row ?>[usage_date]"  class="form-control " />
+                                                            <datalist id="usage_date_list">
+                                                                <?php 
+                                                                $usage_date_options = $comp_model -> program_item_usage_usage_date_option_list();
+                                                                if(!empty($usage_date_options)){
+                                                                foreach($usage_date_options as $option){
+                                                                $value = (!empty($option['value']) ? $option['value'] : null);
+                                                                $label = (!empty($option['label']) ? $option['label'] : $value);
+                                                                ?>
+                                                                <option value="<?php echo $value; ?>"><?php echo $label; ?></option>
+                                                                <?php
+                                                                }
+                                                                }
+                                                                ?>
+                                                            </datalist>
+                                                            <input id="ctrl-program_manager_id-row<?php echo $row; ?>"  value="<?php  echo $this->set_field_value('program_manager_id',"", $row); ?>" type="hidden" placeholder="Enter Program Manager Id"  name="row<?php echo $row ?>[program_manager_id]"  class="form-control " />
+                                                                <input id="ctrl-item_id-row<?php echo $row; ?>"  value="<?php  echo $this->set_field_value('item_id',"", $row); ?>" type="hidden" placeholder="Enter Item Id" list="item_id_list"  name="row<?php echo $row ?>[item_id]"  class="form-control " />
+                                                                    <datalist id="item_id_list">
+                                                                        <?php 
+                                                                        $item_id_options = $comp_model -> program_item_usage_item_id_option_list();
+                                                                        if(!empty($item_id_options)){
+                                                                        foreach($item_id_options as $option){
+                                                                        $value = (!empty($option['value']) ? $option['value'] : null);
+                                                                        $label = (!empty($option['label']) ? $option['label'] : $value);
+                                                                        ?>
+                                                                        <option value="<?php echo $value; ?>"><?php echo $label; ?></option>
+                                                                        <?php
+                                                                        }
+                                                                        }
+                                                                        ?>
+                                                                    </datalist>
+                                                                    <td>
+                                                                        <div id="ctrl-batch_id-row<?php echo $row; ?>-holder" class="">
+                                                                            <select required=""  id="ctrl-batch_id-row<?php echo $row; ?>" name="row<?php echo $row ?>[batch_id]"  placeholder="Select a value ..."    class="custom-select" >
+                                                                                <option value="">Select a value ...</option>
+                                                                                <?php 
+                                                                                $batch_id_options = $comp_model -> program_item_usage_batch_id_option_list();
+                                                                                if(!empty($batch_id_options)){
+                                                                                foreach($batch_id_options as $option){
+                                                                                $value = (!empty($option['value']) ? $option['value'] : null);
+                                                                                $label = (!empty($option['label']) ? $option['label'] : $value);
+                                                                                $selected = $this->set_field_selected('batch_id',$value, "");
+                                                                                ?>
+                                                                                <option <?php echo $selected; ?> value="<?php echo $value; ?>">
+                                                                                    <?php echo $label; ?>
+                                                                                </option>
+                                                                                <?php
+                                                                                }
+                                                                                }
+                                                                                ?>
+                                                                            </select>
                                                                         </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div id="ctrl-qty_used-row<?php echo $row; ?>-holder" class="">
+                                                                            <input id="ctrl-qty_used-row<?php echo $row; ?>"  value="<?php  echo $this->set_field_value('qty_used',"", $row); ?>" type="number" placeholder="Enter Qty Used" step="0.1" list="qty_used_list"  required="" name="row<?php echo $row ?>[qty_used]"  class="form-control " />
+                                                                                <datalist id="qty_used_list">
+                                                                                    <?php 
+                                                                                    $qty_used_options = $comp_model -> program_item_usage_qty_used_option_list();
+                                                                                    if(!empty($qty_used_options)){
+                                                                                    foreach($qty_used_options as $option){
+                                                                                    $value = (!empty($option['value']) ? $option['value'] : null);
+                                                                                    $label = (!empty($option['label']) ? $option['label'] : $value);
+                                                                                    ?>
+                                                                                    <option value="<?php echo $value; ?>"><?php echo $label; ?></option>
+                                                                                    <?php
+                                                                                    }
+                                                                                    }
+                                                                                    ?>
+                                                                                </datalist>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td>
+                                                                            <div id="ctrl-remarks-row<?php echo $row; ?>-holder" class="">
+                                                                                <textarea placeholder="Enter Remarks" id="ctrl-remarks-row<?php echo $row; ?>"  rows="5" name="row<?php echo $row ?>[remarks]" class=" form-control"><?php  echo $this->set_field_value('remarks',"", $row); ?></textarea>
+                                                                                <!--<div class="invalid-feedback animated bounceIn text-center">Please enter text</div>-->
+                                                                            </div>
+                                                                        </td>
+                                                                        <input id="ctrl-stock_movement_id-row<?php echo $row; ?>"  value="<?php  echo $this->set_field_value('stock_movement_id',"", $row); ?>" type="hidden" placeholder="Enter Stock Movement Id"  name="row<?php echo $row ?>[stock_movement_id]"  class="form-control " />
+                                                                            <input id="ctrl-encodedby_id-row<?php echo $row; ?>"  value="<?php echo USER_ID?>" type="hidden" placeholder="Enter Encodedby Id"  required="" name="row<?php echo $row ?>[encodedby_id]"  class="form-control " />
+                                                                                <th class="text-center">
+                                                                                    <button type="button" class="close btn-remove-table-row">&times;</button>
+                                                                                </th>
+                                                                            </tr>
+                                                                        </template>
+                                                                        <!--[/table row template]-->
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="form-group form-submit-btn-holder text-center mt-3">
-                                                            <div class="form-ajax-status"></div>
-                                                            <button class="btn btn-primary" type="submit">
-                                                                Submit
-                                                                <i class="material-icons">send</i>
-                                                            </button>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </section>
+                                                    </div>
+                                                </section>

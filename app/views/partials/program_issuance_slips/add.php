@@ -29,24 +29,49 @@ $redirect_to = $this->redirect_to;
                 <div class="col-md-7 comp-grid">
                     <?php $this :: display_page_errors(); ?>
                     <div  class="bg-light p-3 animated fadeIn page-content">
-                        <form id="program_issuance_slips-add-form" role="form" novalidate enctype="multipart/form-data" class="form page-form form-horizontal needs-validation" action="<?php print_link("program_issuance_slips/add?csrf_token=$csrf_token") ?>" method="post">
+                        <form id="program_issuance_slips-add-form" role="form" novalidate enctype="multipart/form-data" class="form page-form form-vertical needs-validation" action="<?php print_link("program_issuance_slips/add?csrf_token=$csrf_token") ?>" method="post">
                             <div>
                                 <div class="form-group ">
-                                    <div class="row">
-                                        <div class="col-sm-4">
-                                            <label class="control-label" for="slip_no">Slip No <span class="text-danger">*</span></label>
+                                    <label class="control-label" for="slip_no">Slip No <span class="text-danger">*</span></label>
+                                    <div id="ctrl-slip_no-holder" class=""> 
+                                        <input id="ctrl-slip_no"  value="<?php  echo $this->set_field_value('slip_no',""); ?>" type="text" placeholder="Enter Slip No" list="slip_no_list"  required="" name="slip_no"  class="form-control " />
+                                            <datalist id="slip_no_list">
+                                                <?php 
+                                                $slip_no_options = $comp_model -> program_issuance_slips_slip_no_option_list();
+                                                if(!empty($slip_no_options)){
+                                                foreach($slip_no_options as $option){
+                                                $value = (!empty($option['value']) ? $option['value'] : null);
+                                                $label = (!empty($option['label']) ? $option['label'] : $value);
+                                                ?>
+                                                <option value="<?php echo $value; ?>"><?php echo $label; ?></option>
+                                                <?php
+                                                }
+                                                }
+                                                ?>
+                                            </datalist>
                                         </div>
-                                        <div class="col-sm-8">
-                                            <div class="">
-                                                <select required=""  id="ctrl-slip_no" name="slip_no"  placeholder="Select a value ..."    class="custom-select" >
+                                    </div>
+                                    <div class="form-group ">
+                                        <label class="control-label" for="issuance_date">Issuance Date <span class="text-danger">*</span></label>
+                                        <div id="ctrl-issuance_date-holder" class="input-group"> 
+                                            <input id="ctrl-issuance_date" class="form-control datepicker  datepicker"  required="" value="<?php  echo $this->set_field_value('issuance_date',date_now()); ?>" type="datetime" name="issuance_date" placeholder="Enter Issuance Date" data-enable-time="false" data-min-date="" data-max-date="" data-date-format="Y-m-d" data-alt-format="F j, Y" data-inline="false" data-no-calendar="false" data-mode="single" />
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text"><i class="material-icons">date_range</i></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group ">
+                                            <label class="control-label" for="client_id">Client Id <span class="text-danger">*</span></label>
+                                            <div id="ctrl-client_id-holder" class=""> 
+                                                <select required=""  id="ctrl-client_id" name="client_id"  placeholder="Select a value ..."    class="custom-select" >
                                                     <option value="">Select a value ...</option>
                                                     <?php 
-                                                    $slip_no_options = $comp_model -> program_issuance_slips_slip_no_option_list();
-                                                    if(!empty($slip_no_options)){
-                                                    foreach($slip_no_options as $option){
+                                                    $client_id_options = $comp_model -> program_issuance_slips_client_id_option_list();
+                                                    if(!empty($client_id_options)){
+                                                    foreach($client_id_options as $option){
                                                     $value = (!empty($option['value']) ? $option['value'] : null);
                                                     $label = (!empty($option['label']) ? $option['label'] : $value);
-                                                    $selected = $this->set_field_selected('slip_no',$value, "");
+                                                    $selected = $this->set_field_selected('client_id',$value, "");
                                                     ?>
                                                     <option <?php echo $selected; ?> value="<?php echo $value; ?>">
                                                         <?php echo $label; ?>
@@ -58,165 +83,95 @@ $redirect_to = $this->redirect_to;
                                                 </select>
                                             </div>
                                         </div>
-                                    </div>
+                                        <div class="form-group ">
+                                            <label class="control-label" for="purpose">Purpose <span class="text-danger">*</span></label>
+                                            <div id="ctrl-purpose-holder" class=""> 
+                                                <textarea placeholder="Enter Purpose" id="ctrl-purpose"  required="" rows="5" name="purpose" class=" form-control"><?php  echo $this->set_field_value('purpose',""); ?></textarea>
+                                                <!--<div class="invalid-feedback animated bounceIn text-center">Please enter text</div>-->
+                                            </div>
+                                        </div>
+                                        <div class="form-group ">
+                                            <label class="control-label" for="division">Division </label>
+                                            <div id="ctrl-division-holder" class=""> 
+                                                <select  id="ctrl-division" name="division"  placeholder="Select a value ..."    class="custom-select" >
+                                                    <option value="">Select a value ...</option>
+                                                    <?php
+                                                    $division_options = Menu :: $issuance_date;
+                                                    if(!empty($division_options)){
+                                                    foreach($division_options as $option){
+                                                    $value = $option['value'];
+                                                    $label = $option['label'];
+                                                    $selected = $this->set_field_selected('division', $value, "");
+                                                    ?>
+                                                    <option <?php echo $selected ?> value="<?php echo $value ?>">
+                                                        <?php echo $label ?>
+                                                    </option>                                   
+                                                    <?php
+                                                    }
+                                                    }
+                                                    ?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group ">
+                                            <label class="control-label" for="section">Section </label>
+                                            <div id="ctrl-section-holder" class=""> 
+                                                <select  id="ctrl-section" name="section"  placeholder="Select a value ..."    class="custom-select" >
+                                                    <option value="">Select a value ...</option>
+                                                    <?php 
+                                                    $section_options = $comp_model -> program_issuance_slips_section_option_list();
+                                                    if(!empty($section_options)){
+                                                    foreach($section_options as $option){
+                                                    $value = (!empty($option['value']) ? $option['value'] : null);
+                                                    $label = (!empty($option['label']) ? $option['label'] : $value);
+                                                    $selected = $this->set_field_selected('section',$value, "");
+                                                    ?>
+                                                    <option <?php echo $selected; ?> value="<?php echo $value; ?>">
+                                                        <?php echo $label; ?>
+                                                    </option>
+                                                    <?php
+                                                    }
+                                                    }
+                                                    ?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group ">
+                                            <label class="control-label" for="approvedby_id">Approvedby Id </label>
+                                            <div id="ctrl-approvedby_id-holder" class=""> 
+                                                <select  id="ctrl-approvedby_id" name="approvedby_id"  placeholder="Select a value ..."    class="custom-select" >
+                                                    <option value="">Select a value ...</option>
+                                                    <?php 
+                                                    $approvedby_id_options = $comp_model -> program_issuance_slips_approvedby_id_option_list();
+                                                    if(!empty($approvedby_id_options)){
+                                                    foreach($approvedby_id_options as $option){
+                                                    $value = (!empty($option['value']) ? $option['value'] : null);
+                                                    $label = (!empty($option['label']) ? $option['label'] : $value);
+                                                    $selected = $this->set_field_selected('approvedby_id',$value, "");
+                                                    ?>
+                                                    <option <?php echo $selected; ?> value="<?php echo $value; ?>">
+                                                        <?php echo $label; ?>
+                                                    </option>
+                                                    <?php
+                                                    }
+                                                    }
+                                                    ?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <input id="ctrl-encodedby_id"  value="<?php echo USER_ID?>" type="hidden" placeholder="Enter Encodedby Id"  required="" name="encodedby_id"  class="form-control " />
+                                        </div>
+                                        <div class="form-group form-submit-btn-holder text-center mt-3">
+                                            <div class="form-ajax-status"></div>
+                                            <button class="btn btn-primary" type="submit">
+                                                Submit
+                                                <i class="material-icons">send</i>
+                                            </button>
+                                        </div>
+                                    </form>
                                 </div>
-                                <div class="form-group ">
-                                    <div class="row">
-                                        <div class="col-sm-4">
-                                            <label class="control-label" for="issuance_date">Issuance Date <span class="text-danger">*</span></label>
-                                        </div>
-                                        <div class="col-sm-8">
-                                            <div class="input-group">
-                                                <input id="ctrl-issuance_date" class="form-control datepicker  datepicker"  required="" value="<?php  echo $this->set_field_value('issuance_date',date_now()); ?>" type="datetime" name="issuance_date" placeholder="Enter Issuance Date" data-enable-time="false" data-min-date="" data-max-date="" data-date-format="Y-m-d" data-alt-format="F j, Y" data-inline="false" data-no-calendar="false" data-mode="single" />
-                                                    <div class="input-group-append">
-                                                        <span class="input-group-text"><i class="material-icons">date_range</i></span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group ">
-                                        <div class="row">
-                                            <div class="col-sm-4">
-                                                <label class="control-label" for="client_id">Client Id <span class="text-danger">*</span></label>
-                                            </div>
-                                            <div class="col-sm-8">
-                                                <div class="">
-                                                    <select required=""  id="ctrl-client_id" name="client_id"  placeholder="Select a value ..."    class="custom-select" >
-                                                        <option value="">Select a value ...</option>
-                                                        <?php 
-                                                        $client_id_options = $comp_model -> program_issuance_slips_client_id_option_list();
-                                                        if(!empty($client_id_options)){
-                                                        foreach($client_id_options as $option){
-                                                        $value = (!empty($option['value']) ? $option['value'] : null);
-                                                        $label = (!empty($option['label']) ? $option['label'] : $value);
-                                                        $selected = $this->set_field_selected('client_id',$value, "");
-                                                        ?>
-                                                        <option <?php echo $selected; ?> value="<?php echo $value; ?>">
-                                                            <?php echo $label; ?>
-                                                        </option>
-                                                        <?php
-                                                        }
-                                                        }
-                                                        ?>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group ">
-                                        <div class="row">
-                                            <div class="col-sm-4">
-                                                <label class="control-label" for="purpose">Purpose <span class="text-danger">*</span></label>
-                                            </div>
-                                            <div class="col-sm-8">
-                                                <div class="">
-                                                    <textarea placeholder="Enter Purpose" id="ctrl-purpose"  required="" rows="5" name="purpose" class=" form-control"><?php  echo $this->set_field_value('purpose',""); ?></textarea>
-                                                    <!--<div class="invalid-feedback animated bounceIn text-center">Please enter text</div>-->
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group ">
-                                        <div class="row">
-                                            <div class="col-sm-4">
-                                                <label class="control-label" for="division">Division <span class="text-danger">*</span></label>
-                                            </div>
-                                            <div class="col-sm-8">
-                                                <div class="">
-                                                    <select required=""  id="ctrl-division" name="division"  placeholder="Select a value ..."    class="custom-select" >
-                                                        <option value="">Select a value ...</option>
-                                                        <?php
-                                                        $division_options = Menu :: $issuance_date;
-                                                        if(!empty($division_options)){
-                                                        foreach($division_options as $option){
-                                                        $value = $option['value'];
-                                                        $label = $option['label'];
-                                                        $selected = $this->set_field_selected('division', $value, "");
-                                                        ?>
-                                                        <option <?php echo $selected ?> value="<?php echo $value ?>">
-                                                            <?php echo $label ?>
-                                                        </option>                                   
-                                                        <?php
-                                                        }
-                                                        }
-                                                        ?>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group ">
-                                        <div class="row">
-                                            <div class="col-sm-4">
-                                                <label class="control-label" for="section">Section <span class="text-danger">*</span></label>
-                                            </div>
-                                            <div class="col-sm-8">
-                                                <div class="">
-                                                    <select required=""  id="ctrl-section" name="section"  placeholder="Select a value ..."    class="custom-select" >
-                                                        <option value="">Select a value ...</option>
-                                                        <?php 
-                                                        $section_options = $comp_model -> program_issuance_slips_section_option_list();
-                                                        if(!empty($section_options)){
-                                                        foreach($section_options as $option){
-                                                        $value = (!empty($option['value']) ? $option['value'] : null);
-                                                        $label = (!empty($option['label']) ? $option['label'] : $value);
-                                                        $selected = $this->set_field_selected('section',$value, "");
-                                                        ?>
-                                                        <option <?php echo $selected; ?> value="<?php echo $value; ?>">
-                                                            <?php echo $label; ?>
-                                                        </option>
-                                                        <?php
-                                                        }
-                                                        }
-                                                        ?>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group ">
-                                        <div class="row">
-                                            <div class="col-sm-4">
-                                                <label class="control-label" for="approvedby_id">Approvedby Id <span class="text-danger">*</span></label>
-                                            </div>
-                                            <div class="col-sm-8">
-                                                <div class="">
-                                                    <select required=""  id="ctrl-approvedby_id" name="approvedby_id"  placeholder="Select a value ..."    class="custom-select" >
-                                                        <option value="">Select a value ...</option>
-                                                        <?php 
-                                                        $approvedby_id_options = $comp_model -> program_issuance_slips_approvedby_id_option_list();
-                                                        if(!empty($approvedby_id_options)){
-                                                        foreach($approvedby_id_options as $option){
-                                                        $value = (!empty($option['value']) ? $option['value'] : null);
-                                                        $label = (!empty($option['label']) ? $option['label'] : $value);
-                                                        $selected = $this->set_field_selected('approvedby_id',$value, "");
-                                                        ?>
-                                                        <option <?php echo $selected; ?> value="<?php echo $value; ?>">
-                                                            <?php echo $label; ?>
-                                                        </option>
-                                                        <?php
-                                                        }
-                                                        }
-                                                        ?>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <input id="ctrl-encodedby_id"  value="<?php echo USER_ID?>" type="hidden" placeholder="Enter Encodedby Id"  required="" name="encodedby_id"  class="form-control " />
-                                    </div>
-                                    <div class="form-group form-submit-btn-holder text-center mt-3">
-                                        <div class="form-ajax-status"></div>
-                                        <button class="btn btn-primary" type="submit">
-                                            Submit
-                                            <i class="material-icons">send</i>
-                                        </button>
-                                    </div>
-                                </form>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>

@@ -21,20 +21,11 @@ class Program_issuance_slipsController extends SecureController{
 		$fields = array("program_issuance_slips.id", 
 			"program_issuance_slips.slip_no", 
 			"program_issuance_slips.issuance_date", 
-			"program_issuance_slips.division", 
-			"program_issuance_slips.section", 
-			"program_issuance_slips.purpose", 
-			"program_issuance_slips.approvedby_id", 
-			"program_issuance_slips.encodedby_id", 
-			"program_issuance_slips.client_id", 
-			"clients.id AS clients_id", 
 			"clients.name AS clients_name", 
 			"clients.address AS clients_address", 
-			"clients.contactnumber AS clients_contactnumber", 
-			"clients.isactive AS clients_isactive", 
-			"clients.encodedby_id AS clients_encodedby_id", 
-			"clients.created_at AS clients_created_at", 
-			"clients.updated_at AS clients_updated_at");
+			"program_issuance_slips.purpose", 
+			"program_issuance_slips.division", 
+			"program_issuance_slips.section");
 		$pagination = $this->get_pagination(MAX_RECORD_COUNT); // get current pagination e.g array(page_number, page_limit)
 		//search table record
 		if(!empty($request->search)){
@@ -43,16 +34,16 @@ class Program_issuance_slipsController extends SecureController{
 				program_issuance_slips.id LIKE ? OR 
 				program_issuance_slips.slip_no LIKE ? OR 
 				program_issuance_slips.issuance_date LIKE ? OR 
+				clients.name LIKE ? OR 
+				clients.address LIKE ? OR 
+				program_issuance_slips.purpose LIKE ? OR 
 				program_issuance_slips.division LIKE ? OR 
 				program_issuance_slips.section LIKE ? OR 
-				program_issuance_slips.purpose LIKE ? OR 
 				program_issuance_slips.approvedby_id LIKE ? OR 
 				program_issuance_slips.encodedby_id LIKE ? OR 
 				program_issuance_slips.created_at LIKE ? OR 
 				program_issuance_slips.client_id LIKE ? OR 
 				clients.id LIKE ? OR 
-				clients.name LIKE ? OR 
-				clients.address LIKE ? OR 
 				clients.contactnumber LIKE ? OR 
 				clients.isactive LIKE ? OR 
 				clients.encodedby_id LIKE ? OR 
@@ -120,17 +111,9 @@ class Program_issuance_slipsController extends SecureController{
 			"program_issuance_slips.section", 
 			"program_issuance_slips.purpose", 
 			"program_issuance_slips.approvedby_id", 
-			"program_issuance_slips.encodedby_id", 
-			"program_issuance_slips.created_at", 
-			"program_issuance_slips.client_id", 
-			"clients.id AS clients_id", 
 			"clients.name AS clients_name", 
 			"clients.address AS clients_address", 
-			"clients.contactnumber AS clients_contactnumber", 
-			"clients.isactive AS clients_isactive", 
-			"clients.encodedby_id AS clients_encodedby_id", 
-			"clients.created_at AS clients_created_at", 
-			"clients.updated_at AS clients_updated_at");
+			"clients.contactnumber AS clients_contactnumber");
 		if($value){
 			$db->where($rec_id, urldecode($value)); //select record based on field name
 		}
@@ -175,9 +158,6 @@ class Program_issuance_slipsController extends SecureController{
 				'issuance_date' => 'required',
 				'client_id' => 'required',
 				'purpose' => 'required',
-				'division' => 'required',
-				'section' => 'required',
-				'approvedby_id' => 'required',
 				'encodedby_id' => 'required',
 			);
 			$this->sanitize_array = array(
@@ -226,9 +206,6 @@ class Program_issuance_slipsController extends SecureController{
 				'issuance_date' => 'required',
 				'client_id' => 'required',
 				'purpose' => 'required',
-				'division' => 'required',
-				'section' => 'required',
-				'approvedby_id' => 'required',
 				'encodedby_id' => 'required',
 			);
 			$this->sanitize_array = array(
@@ -296,9 +273,6 @@ class Program_issuance_slipsController extends SecureController{
 				'issuance_date' => 'required',
 				'client_id' => 'required',
 				'purpose' => 'required',
-				'division' => 'required',
-				'section' => 'required',
-				'approvedby_id' => 'required',
 				'encodedby_id' => 'required',
 			);
 			$this->sanitize_array = array(

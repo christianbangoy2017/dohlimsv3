@@ -82,10 +82,10 @@ $show_export_btn = $this->show_export_btn;
                                                 data-pk="<?php echo $data['id'] ?>" 
                                                 data-url="<?php print_link("program_item_usage/editfield/" . urlencode($data['id'])); ?>" 
                                                 data-name="item_id" 
-                                                data-title="Select a value ..." 
+                                                data-title="Enter Item Id" 
                                                 data-placement="left" 
                                                 data-toggle="click" 
-                                                data-type="select" 
+                                                data-type="text" 
                                                 data-mode="popover" 
                                                 data-showbuttons="left" 
                                                 class="is-editable" <?php } ?>>
@@ -101,10 +101,10 @@ $show_export_btn = $this->show_export_btn;
                                                 data-pk="<?php echo $data['id'] ?>" 
                                                 data-url="<?php print_link("program_item_usage/editfield/" . urlencode($data['id'])); ?>" 
                                                 data-name="batch_id" 
-                                                data-title="Enter Batch Id" 
+                                                data-title="Select a value ..." 
                                                 data-placement="left" 
                                                 data-toggle="click" 
-                                                data-type="text" 
+                                                data-type="select" 
                                                 data-mode="popover" 
                                                 data-showbuttons="left" 
                                                 class="is-editable" <?php } ?>>
@@ -135,8 +135,7 @@ $show_export_btn = $this->show_export_btn;
                                     <tr  class="td-usage_date">
                                         <th class="title"> Usage Date: </th>
                                         <td class="value">
-                                            <span <?php if($can_edit){ ?> data-flatpickr="{ enableTime: false, minDate: '', maxDate: ''}" 
-                                                data-source='<?php print_link('api/json/program_item_usage_usage_date_option_list'); ?>' 
+                                            <span <?php if($can_edit){ ?> data-source='<?php print_link('api/json/program_item_usage_usage_date_option_list'); ?>' 
                                                 data-value="<?php echo $data['usage_date']; ?>" 
                                                 data-pk="<?php echo $data['id'] ?>" 
                                                 data-url="<?php print_link("program_item_usage/editfield/" . urlencode($data['id'])); ?>" 
@@ -144,7 +143,7 @@ $show_export_btn = $this->show_export_btn;
                                                 data-title="Enter Usage Date" 
                                                 data-placement="left" 
                                                 data-toggle="click" 
-                                                data-type="flatdatetimepicker" 
+                                                data-type="text" 
                                                 data-mode="popover" 
                                                 data-showbuttons="left" 
                                                 class="is-editable" <?php } ?>>
@@ -198,14 +197,15 @@ $show_export_btn = $this->show_export_btn;
                                     <tr  class="td-issuance_id">
                                         <th class="title"> Issuance Id: </th>
                                         <td class="value">
-                                            <span <?php if($can_edit){ ?> data-value="<?php echo $data['issuance_id']; ?>" 
+                                            <span <?php if($can_edit){ ?> data-source='<?php print_link('api/json/program_item_usage_issuance_id_option_list'); ?>' 
+                                                data-value="<?php echo $data['issuance_id']; ?>" 
                                                 data-pk="<?php echo $data['id'] ?>" 
                                                 data-url="<?php print_link("program_item_usage/editfield/" . urlencode($data['id'])); ?>" 
                                                 data-name="issuance_id" 
-                                                data-title="Enter Issuance Id" 
+                                                data-title="Select a value ..." 
                                                 data-placement="left" 
                                                 data-toggle="click" 
-                                                data-type="number" 
+                                                data-type="select" 
                                                 data-mode="popover" 
                                                 data-showbuttons="left" 
                                                 class="is-editable" <?php } ?>>
@@ -223,69 +223,13 @@ $show_export_btn = $this->show_export_btn;
                                                 data-title="Enter Encodedby Id" 
                                                 data-placement="left" 
                                                 data-toggle="click" 
-                                                data-type="number" 
+                                                data-type="text" 
                                                 data-mode="popover" 
                                                 data-showbuttons="left" 
                                                 class="is-editable" <?php } ?>>
                                                 <?php echo $data['encodedby_id']; ?> 
                                             </span>
                                         </td>
-                                    </tr>
-                                    <tr  class="td-items_id">
-                                        <th class="title"> Items Id: </th>
-                                        <td class="value"> <?php echo $data['items_id']; ?></td>
-                                    </tr>
-                                    <tr  class="td-items_item_code">
-                                        <th class="title"> Items Item Code: </th>
-                                        <td class="value"> <?php echo $data['items_item_code']; ?></td>
-                                    </tr>
-                                    <tr  class="td-items_item_name">
-                                        <th class="title"> Items Item Name: </th>
-                                        <td class="value"> <?php echo $data['items_item_name']; ?></td>
-                                    </tr>
-                                    <tr  class="td-items_generic_name">
-                                        <th class="title"> Items Generic Name: </th>
-                                        <td class="value"> <?php echo $data['items_generic_name']; ?></td>
-                                    </tr>
-                                    <tr  class="td-items_category_id">
-                                        <th class="title"> Items Category Id: </th>
-                                        <td class="value"> <?php echo $data['items_category_id']; ?></td>
-                                    </tr>
-                                    <tr  class="td-items_unit_of_measure">
-                                        <th class="title"> Items Unit Of Measure: </th>
-                                        <td class="value"> <?php echo $data['items_unit_of_measure']; ?></td>
-                                    </tr>
-                                    <tr  class="td-items_min_stock_level">
-                                        <th class="title"> Items Min Stock Level: </th>
-                                        <td class="value"> <?php echo $data['items_min_stock_level']; ?></td>
-                                    </tr>
-                                    <tr  class="td-items_is_active">
-                                        <th class="title"> Items Is Active: </th>
-                                        <td class="value"> <?php echo $data['items_is_active']; ?></td>
-                                    </tr>
-                                    <tr  class="td-items_created_at">
-                                        <th class="title"> Items Created At: </th>
-                                        <td class="value"> <?php echo $data['items_created_at']; ?></td>
-                                    </tr>
-                                    <tr  class="td-items_updated_at">
-                                        <th class="title"> Items Updated At: </th>
-                                        <td class="value"> <?php echo $data['items_updated_at']; ?></td>
-                                    </tr>
-                                    <tr  class="td-items_deleted_at">
-                                        <th class="title"> Items Deleted At: </th>
-                                        <td class="value"> <?php echo $data['items_deleted_at']; ?></td>
-                                    </tr>
-                                    <tr  class="td-items_is_deleted">
-                                        <th class="title"> Items Is Deleted: </th>
-                                        <td class="value"> <?php echo $data['items_is_deleted']; ?></td>
-                                    </tr>
-                                    <tr  class="td-items_encodedby_id">
-                                        <th class="title"> Items Encodedby Id: </th>
-                                        <td class="value"> <?php echo $data['items_encodedby_id']; ?></td>
-                                    </tr>
-                                    <tr  class="td-items_itemname_generic">
-                                        <th class="title"> Items Itemname Generic: </th>
-                                        <td class="value"> <?php echo $data['items_itemname_generic']; ?></td>
                                     </tr>
                                     <tr  class="td-batches_id">
                                         <th class="title"> Batches Id: </th>
@@ -406,6 +350,62 @@ $show_export_btn = $this->show_export_btn;
                                     <tr  class="td-clients_updated_at">
                                         <th class="title"> Clients Updated At: </th>
                                         <td class="value"> <?php echo $data['clients_updated_at']; ?></td>
+                                    </tr>
+                                    <tr  class="td-items_id">
+                                        <th class="title"> Items Id: </th>
+                                        <td class="value"> <?php echo $data['items_id']; ?></td>
+                                    </tr>
+                                    <tr  class="td-items_item_code">
+                                        <th class="title"> Items Item Code: </th>
+                                        <td class="value"> <?php echo $data['items_item_code']; ?></td>
+                                    </tr>
+                                    <tr  class="td-items_item_name">
+                                        <th class="title"> Items Item Name: </th>
+                                        <td class="value"> <?php echo $data['items_item_name']; ?></td>
+                                    </tr>
+                                    <tr  class="td-items_generic_name">
+                                        <th class="title"> Items Generic Name: </th>
+                                        <td class="value"> <?php echo $data['items_generic_name']; ?></td>
+                                    </tr>
+                                    <tr  class="td-items_category_id">
+                                        <th class="title"> Items Category Id: </th>
+                                        <td class="value"> <?php echo $data['items_category_id']; ?></td>
+                                    </tr>
+                                    <tr  class="td-items_unit_of_measure">
+                                        <th class="title"> Items Unit Of Measure: </th>
+                                        <td class="value"> <?php echo $data['items_unit_of_measure']; ?></td>
+                                    </tr>
+                                    <tr  class="td-items_min_stock_level">
+                                        <th class="title"> Items Min Stock Level: </th>
+                                        <td class="value"> <?php echo $data['items_min_stock_level']; ?></td>
+                                    </tr>
+                                    <tr  class="td-items_is_active">
+                                        <th class="title"> Items Is Active: </th>
+                                        <td class="value"> <?php echo $data['items_is_active']; ?></td>
+                                    </tr>
+                                    <tr  class="td-items_created_at">
+                                        <th class="title"> Items Created At: </th>
+                                        <td class="value"> <?php echo $data['items_created_at']; ?></td>
+                                    </tr>
+                                    <tr  class="td-items_updated_at">
+                                        <th class="title"> Items Updated At: </th>
+                                        <td class="value"> <?php echo $data['items_updated_at']; ?></td>
+                                    </tr>
+                                    <tr  class="td-items_deleted_at">
+                                        <th class="title"> Items Deleted At: </th>
+                                        <td class="value"> <?php echo $data['items_deleted_at']; ?></td>
+                                    </tr>
+                                    <tr  class="td-items_is_deleted">
+                                        <th class="title"> Items Is Deleted: </th>
+                                        <td class="value"> <?php echo $data['items_is_deleted']; ?></td>
+                                    </tr>
+                                    <tr  class="td-items_encodedby_id">
+                                        <th class="title"> Items Encodedby Id: </th>
+                                        <td class="value"> <?php echo $data['items_encodedby_id']; ?></td>
+                                    </tr>
+                                    <tr  class="td-items_itemname_generic">
+                                        <th class="title"> Items Itemname Generic: </th>
+                                        <td class="value"> <?php echo $data['items_itemname_generic']; ?></td>
                                     </tr>
                                 </tbody>
                                 <!-- Table Body End -->

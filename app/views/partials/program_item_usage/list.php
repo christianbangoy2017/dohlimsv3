@@ -127,12 +127,12 @@ $show_pagination = $this->show_pagination;
                                                 <th class="td-sno">#</th>
                                                 <th  class="td-issuance_id"> Issuance Id</th>
                                                 <th  class="td-usage_date"> Date</th>
-                                                <th  class="td-items_item_name"> Item Name</th>
-                                                <th  class="td-items_generic_name"> Generic Name</th>
+                                                <th  class="td-items_item_name"> Items Item Name</th>
                                                 <th  class="td-qty_used"> Qty Used</th>
                                                 <th  class="td-remarks"> Remarks</th>
                                                 <th  class="td-program_issuance_slips_slip_no"> Program Issuance Slips Slip No</th>
                                                 <th  class="td-clients_name"> Clients Name</th>
+                                                <th  class="td-clients_address"> Clients Address</th>
                                                 <th  class="td-program_issuance_slips_purpose"> Program Issuance Slips Purpose</th>
                                                 <th  class="td-batches_expiry_date"> Batches Expiry Date</th>
                                                 <th class="td-btn"></th>
@@ -160,14 +160,15 @@ $show_pagination = $this->show_pagination;
                                                     <?php } ?>
                                                     <th class="td-sno"><?php echo $counter; ?></th>
                                                     <td class="td-issuance_id">
-                                                        <span <?php if($can_edit){ ?> data-value="<?php echo $data['issuance_id']; ?>" 
+                                                        <span <?php if($can_edit){ ?> data-source='<?php print_link('api/json/program_item_usage_issuance_id_option_list'); ?>' 
+                                                            data-value="<?php echo $data['issuance_id']; ?>" 
                                                             data-pk="<?php echo $data['id'] ?>" 
                                                             data-url="<?php print_link("program_item_usage/editfield/" . urlencode($data['id'])); ?>" 
                                                             data-name="issuance_id" 
-                                                            data-title="Enter Issuance Id" 
+                                                            data-title="Select a value ..." 
                                                             data-placement="left" 
                                                             data-toggle="click" 
-                                                            data-type="number" 
+                                                            data-type="select" 
                                                             data-mode="popover" 
                                                             data-showbuttons="left" 
                                                             class="is-editable" <?php } ?>>
@@ -175,8 +176,7 @@ $show_pagination = $this->show_pagination;
                                                         </span>
                                                     </td>
                                                     <td class="td-usage_date">
-                                                        <span <?php if($can_edit){ ?> data-flatpickr="{ enableTime: false, minDate: '', maxDate: ''}" 
-                                                            data-source='<?php print_link('api/json/program_item_usage_usage_date_option_list'); ?>' 
+                                                        <span <?php if($can_edit){ ?> data-source='<?php print_link('api/json/program_item_usage_usage_date_option_list'); ?>' 
                                                             data-value="<?php echo $data['usage_date']; ?>" 
                                                             data-pk="<?php echo $data['id'] ?>" 
                                                             data-url="<?php print_link("program_item_usage/editfield/" . urlencode($data['id'])); ?>" 
@@ -184,7 +184,7 @@ $show_pagination = $this->show_pagination;
                                                             data-title="Enter Usage Date" 
                                                             data-placement="left" 
                                                             data-toggle="click" 
-                                                            data-type="flatdatetimepicker" 
+                                                            data-type="text" 
                                                             data-mode="popover" 
                                                             data-showbuttons="left" 
                                                             class="is-editable" <?php } ?>>
@@ -204,21 +204,6 @@ $show_pagination = $this->show_pagination;
                                                             data-showbuttons="left" 
                                                             class="is-editable" <?php } ?>>
                                                             <?php echo $data['items_item_name']; ?> 
-                                                        </span>
-                                                    </td>
-                                                    <td class="td-items_generic_name">
-                                                        <span <?php if($can_edit){ ?> data-value="<?php echo $data['items_generic_name']; ?>" 
-                                                            data-pk="<?php echo $data['id'] ?>" 
-                                                            data-url="<?php print_link("items/editfield/" . urlencode($data['id'])); ?>" 
-                                                            data-name="generic_name" 
-                                                            data-title="Enter Generic Name" 
-                                                            data-placement="left" 
-                                                            data-toggle="click" 
-                                                            data-type="text" 
-                                                            data-mode="popover" 
-                                                            data-showbuttons="left" 
-                                                            class="is-editable" <?php } ?>>
-                                                            <?php echo $data['items_generic_name']; ?> 
                                                         </span>
                                                     </td>
                                                     <td class="td-qty_used">
@@ -258,10 +243,10 @@ $show_pagination = $this->show_pagination;
                                                             data-pk="<?php echo $data['id'] ?>" 
                                                             data-url="<?php print_link("program_issuance_slips/editfield/" . urlencode($data['id'])); ?>" 
                                                             data-name="slip_no" 
-                                                            data-title="Select a value ..." 
+                                                            data-title="Enter Slip No" 
                                                             data-placement="left" 
                                                             data-toggle="click" 
-                                                            data-type="select" 
+                                                            data-type="text" 
                                                             data-mode="popover" 
                                                             data-showbuttons="left" 
                                                             class="is-editable" <?php } ?>>
@@ -281,6 +266,21 @@ $show_pagination = $this->show_pagination;
                                                             data-showbuttons="left" 
                                                             class="is-editable" <?php } ?>>
                                                             <?php echo $data['clients_name']; ?> 
+                                                        </span>
+                                                    </td>
+                                                    <td class="td-clients_address">
+                                                        <span <?php if($can_edit){ ?> data-value="<?php echo $data['clients_address']; ?>" 
+                                                            data-pk="<?php echo $data['id'] ?>" 
+                                                            data-url="<?php print_link("clients/editfield/" . urlencode($data['id'])); ?>" 
+                                                            data-name="address" 
+                                                            data-title="Enter Address" 
+                                                            data-placement="left" 
+                                                            data-toggle="click" 
+                                                            data-type="text" 
+                                                            data-mode="popover" 
+                                                            data-showbuttons="left" 
+                                                            class="is-editable" <?php } ?>>
+                                                            <?php echo $data['clients_address']; ?> 
                                                         </span>
                                                     </td>
                                                     <td class="td-program_issuance_slips_purpose">
