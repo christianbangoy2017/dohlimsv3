@@ -103,11 +103,11 @@ $show_export_btn = $this->show_export_btn;
                                         </td>
                                     </tr>
                                     <tr  class="td-suppliers_supplier_name">
-                                        <th class="title"> Suppliers Supplier Name: </th>
+                                        <th class="title"> Supplier Name: </th>
                                         <td class="value"> <?php echo $data['suppliers_supplier_name']; ?></td>
                                     </tr>
                                     <tr  class="td-items_item_name">
-                                        <th class="title"> Items Item Name: </th>
+                                        <th class="title"> Item Name: </th>
                                         <td class="value">
                                             <?php
                                             $page_fields = array('batch_id' => $data['id']);
@@ -120,8 +120,44 @@ $show_export_btn = $this->show_export_btn;
                                         </td>
                                     </tr>
                                     <tr  class="td-items_generic_name">
-                                        <th class="title"> Items Generic Name: </th>
+                                        <th class="title"> Generic Name: </th>
                                         <td class="value"> <?php echo $data['items_generic_name']; ?></td>
+                                    </tr>
+                                    <tr  class="td-initial_quantity">
+                                        <th class="title"> Initial Quantity: </th>
+                                        <td class="value">
+                                            <span <?php if($can_edit){ ?> data-value="<?php echo $data['initial_quantity']; ?>" 
+                                                data-pk="<?php echo $data['id'] ?>" 
+                                                data-url="<?php print_link("batches/editfield/" . urlencode($data['id'])); ?>" 
+                                                data-name="initial_quantity" 
+                                                data-title="Enter Initial Quantity" 
+                                                data-placement="left" 
+                                                data-toggle="click" 
+                                                data-type="number" 
+                                                data-mode="popover" 
+                                                data-showbuttons="left" 
+                                                class="is-editable" <?php } ?>>
+                                                <?php echo $data['initial_quantity']; ?> 
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr  class="td-unit_cost">
+                                        <th class="title"> Unit Cost: </th>
+                                        <td class="value">
+                                            <span <?php if($can_edit){ ?> data-value="<?php echo $data['unit_cost']; ?>" 
+                                                data-pk="<?php echo $data['id'] ?>" 
+                                                data-url="<?php print_link("batches/editfield/" . urlencode($data['id'])); ?>" 
+                                                data-name="unit_cost" 
+                                                data-title="Enter Unit Cost" 
+                                                data-placement="left" 
+                                                data-toggle="click" 
+                                                data-type="text" 
+                                                data-mode="popover" 
+                                                data-showbuttons="left" 
+                                                class="is-editable" <?php } ?>>
+                                                <?php echo $data['unit_cost']; ?> 
+                                            </span>
+                                        </td>
                                     </tr>
                                     <tr  class="td-expiry_date">
                                         <th class="title"> Expiry Date: </th>
@@ -139,6 +175,25 @@ $show_export_btn = $this->show_export_btn;
                                                 data-showbuttons="left" 
                                                 class="is-editable" <?php } ?>>
                                                 <?php echo $data['expiry_date']; ?> 
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr  class="td-unit_total">
+                                        <th class="title"> Unit Total: </th>
+                                        <td class="value">
+                                            <span <?php if($can_edit){ ?> data-step="0.1" 
+                                                data-value="<?php echo $data['unit_total']; ?>" 
+                                                data-pk="<?php echo $data['id'] ?>" 
+                                                data-url="<?php print_link("batches/editfield/" . urlencode($data['id'])); ?>" 
+                                                data-name="unit_total" 
+                                                data-title="Enter Unit Total" 
+                                                data-placement="left" 
+                                                data-toggle="click" 
+                                                data-type="number" 
+                                                data-mode="popover" 
+                                                data-showbuttons="left" 
+                                                class="is-editable" <?php } ?>>
+                                                <?php echo $data['unit_total']; ?> 
                                             </span>
                                         </td>
                                     </tr>

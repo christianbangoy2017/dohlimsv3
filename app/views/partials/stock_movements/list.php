@@ -192,15 +192,15 @@ $show_pagination = $this->show_pagination;
                                                         </span>
                                                     </td>
                                                     <td class="td-movement_type">
-                                                        <span <?php if($can_edit){ ?> data-source='<?php print_link('api/json/stock_movements_movement_type_option_list'); ?>' 
+                                                        <span <?php if($can_edit){ ?> data-source='<?php echo json_encode_quote(Menu :: $movement_type); ?>' 
                                                             data-value="<?php echo $data['movement_type']; ?>" 
                                                             data-pk="<?php echo $data['id'] ?>" 
                                                             data-url="<?php print_link("stock_movements/editfield/" . urlencode($data['id'])); ?>" 
                                                             data-name="movement_type" 
-                                                            data-title="Select a value ..." 
+                                                            data-title="Enter Movement Type" 
                                                             data-placement="left" 
                                                             data-toggle="click" 
-                                                            data-type="select" 
+                                                            data-type="radiolist" 
                                                             data-mode="popover" 
                                                             data-showbuttons="left" 
                                                             class="is-editable" <?php } ?>>

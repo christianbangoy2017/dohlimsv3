@@ -132,6 +132,20 @@ class Menu{
 		
 	
 	
+			public static $movement_type = array(
+		array(
+			"value" => "IN", 
+			"label" => "IN", 
+		),
+		array(
+			"value" => "OUT", 
+			"label" => "OUT", 
+		),
+		array(
+			"value" => "ADJUSTMENT", 
+			"label" => "ADJUSTMENT", 
+		),);
+		
 			public static $role = array(
 		array(
 			"value" => "PROGRAM_MANAGER", 

@@ -407,6 +407,44 @@ $show_export_btn = $this->show_export_btn;
                                         <th class="title"> Items Itemname Generic: </th>
                                         <td class="value"> <?php echo $data['items_itemname_generic']; ?></td>
                                     </tr>
+                                    <tr  class="td-unit_cost">
+                                        <th class="title"> Unit Cost: </th>
+                                        <td class="value">
+                                            <span <?php if($can_edit){ ?> data-step="0.1" 
+                                                data-value="<?php echo $data['unit_cost']; ?>" 
+                                                data-pk="<?php echo $data['id'] ?>" 
+                                                data-url="<?php print_link("program_item_usage/editfield/" . urlencode($data['id'])); ?>" 
+                                                data-name="unit_cost" 
+                                                data-title="Enter Unit Cost" 
+                                                data-placement="left" 
+                                                data-toggle="click" 
+                                                data-type="number" 
+                                                data-mode="popover" 
+                                                data-showbuttons="left" 
+                                                class="is-editable" <?php } ?>>
+                                                <?php echo $data['unit_cost']; ?> 
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr  class="td-unit_total">
+                                        <th class="title"> Unit Total: </th>
+                                        <td class="value">
+                                            <span <?php if($can_edit){ ?> data-step="0.1" 
+                                                data-value="<?php echo $data['unit_total']; ?>" 
+                                                data-pk="<?php echo $data['id'] ?>" 
+                                                data-url="<?php print_link("program_item_usage/editfield/" . urlencode($data['id'])); ?>" 
+                                                data-name="unit_total" 
+                                                data-title="Enter Unit Total" 
+                                                data-placement="left" 
+                                                data-toggle="click" 
+                                                data-type="number" 
+                                                data-mode="popover" 
+                                                data-showbuttons="left" 
+                                                class="is-editable" <?php } ?>>
+                                                <?php echo $data['unit_total']; ?> 
+                                            </span>
+                                        </td>
+                                    </tr>
                                 </tbody>
                                 <!-- Table Body End -->
                             </table>

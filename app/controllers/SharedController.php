@@ -55,25 +55,13 @@ class SharedController extends BaseController{
 	}
 
 	/**
-     * stock_movements_movement_type_option_list Model Action
-     * @return array
-     */
-	function stock_movements_movement_type_option_list(){
-		$db = $this->GetModel();
-		$sqltext = "SELECT  DISTINCT movement_type AS value,movement_type AS label FROM stock_movements ORDER BY movement_type ASC";
-		$queryparams = null;
-		$arr = $db->rawQuery($sqltext, $queryparams);
-		return $arr;
-	}
-
-	/**
      * stock_movements_batch_id_option_list Model Action
      * @return array
      */
 	function stock_movements_batch_id_option_list(){
 		$db = $this->GetModel();
 		$sqltext = "SELECT
-DISTINCT b.id AS value,
+b.id AS value,
 concat(i.item_name,' :', batch_number) AS label
 FROM batches b
   INNER JOIN items i on b.item_id=i.id
@@ -101,7 +89,7 @@ FROM batches b
      */
 	function stock_movements_source_location_id_option_list(){
 		$db = $this->GetModel();
-		$sqltext = "SELECT  DISTINCT location_name AS value,location_name AS label FROM locations ORDER BY location_name ASC";
+		$sqltext = "SELECT  location_name AS value,location_name AS label FROM locations ORDER BY location_name ASC";
 		$queryparams = null;
 		$arr = $db->rawQuery($sqltext, $queryparams);
 		return $arr;
@@ -113,7 +101,7 @@ FROM batches b
      */
 	function stock_movements_destination_pm_id_option_list(){
 		$db = $this->GetModel();
-		$sqltext = "SELECT  DISTINCT id AS value, upper(concat(program_name,'-',last_name,' ',first_name)) AS label FROM users WHERE role='PROGRAM_MANAGER'
+		$sqltext = "SELECT  id AS value, upper(concat(program_name,'-',last_name,' ',first_name)) AS label FROM users WHERE role='PROGRAM_MANAGER'
 ORDER BY program_name ASC";
 		$queryparams = null;
 		$arr = $db->rawQuery($sqltext, $queryparams);

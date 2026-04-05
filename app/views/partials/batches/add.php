@@ -144,18 +144,42 @@ $redirect_to = $this->redirect_to;
                                                     </div>
                                                 </div>
                                                 <input id="ctrl-encodedby_id"  value="<?php echo USER_ID?>" type="hidden" placeholder="Enter Encodedby Id"  required="" name="encodedby_id"  class="form-control " />
+                                                    <div class="form-group ">
+                                                        <div class="row">
+                                                            <div class="col-sm-4">
+                                                                <label class="control-label" for="unit_cost">Unit Cost </label>
+                                                            </div>
+                                                            <div class="col-sm-8">
+                                                                <div class="">
+                                                                    <input id="ctrl-unit_cost"  value="<?php  echo $this->set_field_value('unit_cost',"0.00"); ?>" type="text" placeholder="Enter Unit Cost"  name="unit_cost"  class="form-control " />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group ">
+                                                            <div class="row">
+                                                                <div class="col-sm-4">
+                                                                    <label class="control-label" for="unit_total">Unit Total <span class="text-danger">*</span></label>
+                                                                </div>
+                                                                <div class="col-sm-8">
+                                                                    <div class="">
+                                                                        <input id="ctrl-unit_total"  value="<?php  echo $this->set_field_value('unit_total',""); ?>" type="number" placeholder="Enter Unit Total" step="0.1"  required="" name="unit_total"  class="form-control " />
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group form-submit-btn-holder text-center mt-3">
+                                                            <div class="form-ajax-status"></div>
+                                                            <button class="btn btn-primary" type="submit">
+                                                                Submit
+                                                                <i class="material-icons">send</i>
+                                                            </button>
+                                                        </div>
+                                                    </form>
                                                 </div>
-                                                <div class="form-group form-submit-btn-holder text-center mt-3">
-                                                    <div class="form-ajax-status"></div>
-                                                    <button class="btn btn-primary" type="submit">
-                                                        Submit
-                                                        <i class="material-icons">send</i>
-                                                    </button>
-                                                </div>
-                                            </form>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    </section>
+                            </section>

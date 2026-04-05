@@ -1,9 +1,9 @@
 <?php 
 //check if current user role is allowed access to the pages
-$can_add = ACL::is_allowed("vw_stock_movements_at_program/add");
-$can_edit = ACL::is_allowed("vw_stock_movements_at_program/edit");
-$can_view = ACL::is_allowed("vw_stock_movements_at_program/view");
-$can_delete = ACL::is_allowed("vw_stock_movements_at_program/delete");
+$can_add = ACL::is_allowed("vw_print_issuance_slip_2items/add");
+$can_edit = ACL::is_allowed("vw_print_issuance_slip_2items/edit");
+$can_view = ACL::is_allowed("vw_print_issuance_slip_2items/view");
+$can_delete = ACL::is_allowed("vw_print_issuance_slip_2items/delete");
 ?>
 <?php
 $comp_model = new SharedController;
@@ -28,7 +28,7 @@ $show_export_btn = $this->show_export_btn;
         <div class="container">
             <div class="row ">
                 <div class="col ">
-                    <h4 class="record-title">View  Vw Stock Movements At Program</h4>
+                    <h4 class="record-title">View  Vw Print Issuance Slip 2Items</h4>
                 </div>
             </div>
         </div>
@@ -52,81 +52,33 @@ $show_export_btn = $this->show_export_btn;
                             <table class="table table-hover table-borderless table-striped">
                                 <!-- Table Body Start -->
                                 <tbody class="page-data" id="page-data-<?php echo $page_element_id; ?>">
-                                    <tr  class="td-id">
-                                        <th class="title"> Id: </th>
-                                        <td class="value">
-                                            <div class="inline-page">
-                                                <?php
-                                                $page_fields = array('program_manager_id' => $data['program_manager_id'],'item_id' => $data['item_id'],'stock_movement_id' => $data['id'],'batch_id' => $data['batch_id'],'issuance_id' => $data['id']);
-                                                $page_link = "masterdetail/index/vw_stock_movements_at_program/program_item_usage/stock_movement_id/" . urlencode($data['id']);
-                                                $md_pagelink = set_page_link($page_link, $page_fields); 
-                                                ?>
-                                                <a class="btn btn-sm btn-primary open-page-inline" href="<?php print_link($md_pagelink); ?>">
-                                                    <i class="material-icons">visibility</i> <?php echo $data['id'] ?>
-                                                </a>
-                                                <div class="page-content reset-grids d-none animated fadeIn"></div>
-                                            </div>
-                                        </td>
+                                    <tr  class="td-issuance_id">
+                                        <th class="title"> Issuance Id: </th>
+                                        <td class="value"> <?php echo $data['issuance_id']; ?></td>
                                     </tr>
-                                    <tr  class="td-item_code">
-                                        <th class="title"> Item Code: </th>
-                                        <td class="value"> <?php echo $data['item_code']; ?></td>
+                                    <tr  class="td-batch_id">
+                                        <th class="title"> Batch Id: </th>
+                                        <td class="value"> <?php echo $data['batch_id']; ?></td>
                                     </tr>
-                                    <tr  class="td-item_name">
-                                        <th class="title"> Item Name: </th>
-                                        <td class="value"> <?php echo $data['item_name']; ?></td>
+                                    <tr  class="td-item_description">
+                                        <th class="title"> Item Description: </th>
+                                        <td class="value"> <?php echo $data['item_description']; ?></td>
                                     </tr>
-                                    <tr  class="td-expiry_date">
-                                        <th class="title"> Expiry Date: </th>
-                                        <td class="value"> <?php echo $data['expiry_date']; ?></td>
+                                    <tr  class="td-qty">
+                                        <th class="title"> Qty: </th>
+                                        <td class="value"> <?php echo $data['qty']; ?></td>
                                     </tr>
-                                    <tr  class="td-movement_type">
-                                        <th class="title"> Movement Type: </th>
-                                        <td class="value"> <?php echo $data['movement_type']; ?></td>
-                                    </tr>
-                                    <tr  class="td-reason_code">
-                                        <th class="title"> Reason Code: </th>
-                                        <td class="value"> <?php echo $data['reason_code']; ?></td>
-                                    </tr>
-                                    <tr  class="td-initialqty">
-                                        <th class="title"> Initialqty: </th>
-                                        <td class="value"> <?php echo $data['initialqty']; ?></td>
-                                    </tr>
-                                    <tr  class="td-encodedby_id">
-                                        <th class="title"> Encodedby Id: </th>
-                                        <td class="value"> <?php echo $data['encodedby_id']; ?></td>
-                                    </tr>
-                                    <tr  class="td-transaction_date">
-                                        <th class="title"> Transaction Date: </th>
-                                        <td class="value"> <?php echo $data['transaction_date']; ?></td>
-                                    </tr>
-                                    <tr  class="td-program_item_balance_stock_movement_id">
-                                        <th class="title"> Program Item Balance Stock Movement Id: </th>
-                                        <td class="value"> <?php echo $data['program_item_balance_stock_movement_id']; ?></td>
-                                    </tr>
-                                    <tr  class="td-program_item_balance_initialqty">
-                                        <th class="title"> Program Item Balance Initialqty: </th>
-                                        <td class="value"> <?php echo $data['program_item_balance_initialqty']; ?></td>
-                                    </tr>
-                                    <tr  class="td-program_item_balance_total_used">
-                                        <th class="title"> Program Item Balance Total Used: </th>
-                                        <td class="value"> <?php echo $data['program_item_balance_total_used']; ?></td>
-                                    </tr>
-                                    <tr  class="td-program_item_balance_remainingqty">
-                                        <th class="title"> Program Item Balance Remainingqty: </th>
-                                        <td class="value"> <?php echo $data['program_item_balance_remainingqty']; ?></td>
-                                    </tr>
-                                    <tr  class="td-unit_of_measure">
-                                        <th class="title"> Unit Of Measure: </th>
-                                        <td class="value"> <?php echo $data['unit_of_measure']; ?></td>
+                                    <tr  class="td-unit">
+                                        <th class="title"> Unit: </th>
+                                        <td class="value"> <?php echo $data['unit']; ?></td>
                                     </tr>
                                     <tr  class="td-unit_cost">
                                         <th class="title"> Unit Cost: </th>
                                         <td class="value"> <?php echo $data['unit_cost']; ?></td>
                                     </tr>
-                                    <tr  class="td-unit_total">
-                                        <th class="title"> Unit Total: </th>
-                                        <td class="value"> <?php echo $data['unit_total']; ?></td>
+                                    <tr  class="td-total">
+                                        <th class="title"> Total: </th>
+                                        <td class="value"> <?php echo $data['total']; ?></td>
                                     </tr>
                                 </tbody>
                                 <!-- Table Body End -->

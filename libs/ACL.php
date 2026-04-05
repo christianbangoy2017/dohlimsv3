@@ -37,7 +37,11 @@ class ACL
 							'vw_stock_movements' => array('list','view'),
 							'batches_remaining' => array('list','view','add','edit', 'editfield','delete'),
 							'stock_movements_reasons' => array('list','view','add','edit', 'editfield','delete'),
-							'program_issuance_slips' => array('print')
+							'program_issuance_slips' => array('print'),
+							'vw_print_issuance_slip_1header' => array('list','view'),
+							'vw_print_issuance_slip_2items' => array('list','view'),
+							'vw_print_issuance_slip_no' => array('list','view'),
+							'vw_users_program' => array('list','view')
 						)
 		);
 

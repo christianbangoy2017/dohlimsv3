@@ -135,6 +135,8 @@ $show_pagination = $this->show_pagination;
                                                 <th  class="td-clients_address"> Clients Address</th>
                                                 <th  class="td-program_issuance_slips_purpose"> Program Issuance Slips Purpose</th>
                                                 <th  class="td-batches_expiry_date"> Batches Expiry Date</th>
+                                                <th  class="td-unit_cost"> Unit Cost</th>
+                                                <th  class="td-unit_total"> Unit Total</th>
                                                 <th class="td-btn"></th>
                                             </tr>
                                         </thead>
@@ -311,6 +313,38 @@ $show_pagination = $this->show_pagination;
                                                             data-showbuttons="left" 
                                                             class="is-editable" <?php } ?>>
                                                             <?php echo $data['batches_expiry_date']; ?> 
+                                                        </span>
+                                                    </td>
+                                                    <td class="td-unit_cost">
+                                                        <span <?php if($can_edit){ ?> data-step="0.1" 
+                                                            data-value="<?php echo $data['unit_cost']; ?>" 
+                                                            data-pk="<?php echo $data['id'] ?>" 
+                                                            data-url="<?php print_link("program_item_usage/editfield/" . urlencode($data['id'])); ?>" 
+                                                            data-name="unit_cost" 
+                                                            data-title="Enter Unit Cost" 
+                                                            data-placement="left" 
+                                                            data-toggle="click" 
+                                                            data-type="number" 
+                                                            data-mode="popover" 
+                                                            data-showbuttons="left" 
+                                                            class="is-editable" <?php } ?>>
+                                                            <?php echo $data['unit_cost']; ?> 
+                                                        </span>
+                                                    </td>
+                                                    <td class="td-unit_total">
+                                                        <span <?php if($can_edit){ ?> data-step="0.1" 
+                                                            data-value="<?php echo $data['unit_total']; ?>" 
+                                                            data-pk="<?php echo $data['id'] ?>" 
+                                                            data-url="<?php print_link("program_item_usage/editfield/" . urlencode($data['id'])); ?>" 
+                                                            data-name="unit_total" 
+                                                            data-title="Enter Unit Total" 
+                                                            data-placement="left" 
+                                                            data-toggle="click" 
+                                                            data-type="number" 
+                                                            data-mode="popover" 
+                                                            data-showbuttons="left" 
+                                                            class="is-editable" <?php } ?>>
+                                                            <?php echo $data['unit_total']; ?> 
                                                         </span>
                                                     </td>
                                                     <td class="page-list-action td-btn">

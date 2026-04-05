@@ -28,7 +28,9 @@ class Program_item_usageController extends SecureController{
 			"clients.name AS clients_name", 
 			"clients.address AS clients_address", 
 			"program_issuance_slips.purpose AS program_issuance_slips_purpose", 
-			"batches.expiry_date AS batches_expiry_date");
+			"batches.expiry_date AS batches_expiry_date", 
+			"program_item_usage.unit_cost", 
+			"program_item_usage.unit_total");
 		$pagination = $this->get_pagination(MAX_RECORD_COUNT); // get current pagination e.g array(page_number, page_limit)
 		//search table record
 		if(!empty($request->search)){
@@ -89,10 +91,12 @@ class Program_item_usageController extends SecureController{
 				items.deleted_at LIKE ? OR 
 				items.is_deleted LIKE ? OR 
 				items.encodedby_id LIKE ? OR 
-				items.itemname_generic LIKE ?
+				items.itemname_generic LIKE ? OR 
+				program_item_usage.unit_cost LIKE ? OR 
+				program_item_usage.unit_total LIKE ?
 			)";
 			$search_params = array(
-				"%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%"
+				"%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%"
 			);
 			//setting search conditions
 			$db->where($search_condition, $search_params);
@@ -203,7 +207,9 @@ class Program_item_usageController extends SecureController{
 			"items.deleted_at AS items_deleted_at", 
 			"items.is_deleted AS items_is_deleted", 
 			"items.encodedby_id AS items_encodedby_id", 
-			"items.itemname_generic AS items_itemname_generic");
+			"items.itemname_generic AS items_itemname_generic", 
+			"program_item_usage.unit_cost", 
+			"program_item_usage.unit_total");
 		if($value){
 			$db->where($rec_id, urldecode($value)); //select record based on field name
 		}
@@ -245,7 +251,7 @@ class Program_item_usageController extends SecureController{
 			$tablename = $this->tablename;
 			$request = $this->request;
 			//fillable fields
-			$fields = $this->fields = array("issuance_id","usage_date","program_manager_id","item_id","batch_id","qty_used","remarks","stock_movement_id","encodedby_id"); 
+			$fields = $this->fields = array("issuance_id","usage_date","program_manager_id","item_id","batch_id","qty_used","remarks","stock_movement_id","encodedby_id","unit_cost","unit_total"); 
 			$allpostdata = $this->format_multi_request_data($formdata);
 			$allmodeldata = array();
 			foreach($allpostdata as &$postdata){
@@ -255,6 +261,8 @@ class Program_item_usageController extends SecureController{
 				'batch_id' => 'required',
 				'qty_used' => 'required|numeric',
 				'encodedby_id' => 'required',
+				'unit_cost' => 'required|numeric',
+				'unit_total' => 'required|numeric',
 			);
 			$this->sanitize_array = array(
 				'issuance_id' => 'sanitize_string',
@@ -266,6 +274,8 @@ class Program_item_usageController extends SecureController{
 				'remarks' => 'sanitize_string',
 				'stock_movement_id' => 'sanitize_string',
 				'encodedby_id' => 'sanitize_string',
+				'unit_cost' => 'sanitize_string',
+				'unit_total' => 'sanitize_string',
 			);
 			$this->filter_vals = true; //set whether to remove empty fields
 			$modeldata = $this->modeldata = $this->validate_form($postdata);
@@ -297,7 +307,7 @@ class Program_item_usageController extends SecureController{
 		$this->rec_id = $rec_id;
 		$tablename = $this->tablename;
 		 //editable fields
-		$fields = $this->fields = array("id","issuance_id","usage_date","program_manager_id","item_id","batch_id","qty_used","remarks","stock_movement_id","encodedby_id");
+		$fields = $this->fields = array("id","issuance_id","usage_date","program_manager_id","item_id","batch_id","qty_used","remarks","stock_movement_id","encodedby_id","unit_cost","unit_total");
 		if($formdata){
 			$postdata = $this->format_request_data($formdata);
 			$this->rules_array = array(
@@ -306,6 +316,8 @@ class Program_item_usageController extends SecureController{
 				'batch_id' => 'required',
 				'qty_used' => 'required|numeric',
 				'encodedby_id' => 'required',
+				'unit_cost' => 'required|numeric',
+				'unit_total' => 'required|numeric',
 			);
 			$this->sanitize_array = array(
 				'issuance_id' => 'sanitize_string',
@@ -317,6 +329,8 @@ class Program_item_usageController extends SecureController{
 				'remarks' => 'sanitize_string',
 				'stock_movement_id' => 'sanitize_string',
 				'encodedby_id' => 'sanitize_string',
+				'unit_cost' => 'sanitize_string',
+				'unit_total' => 'sanitize_string',
 			);
 			$modeldata = $this->modeldata = $this->validate_form($postdata);
 			if($this->validated()){
@@ -360,7 +374,7 @@ class Program_item_usageController extends SecureController{
 		$this->rec_id = $rec_id;
 		$tablename = $this->tablename;
 		//editable fields
-		$fields = $this->fields = array("id","issuance_id","usage_date","program_manager_id","item_id","batch_id","qty_used","remarks","stock_movement_id","encodedby_id");
+		$fields = $this->fields = array("id","issuance_id","usage_date","program_manager_id","item_id","batch_id","qty_used","remarks","stock_movement_id","encodedby_id","unit_cost","unit_total");
 		$page_error = null;
 		if($formdata){
 			$postdata = array();
@@ -374,6 +388,8 @@ class Program_item_usageController extends SecureController{
 				'batch_id' => 'required',
 				'qty_used' => 'required|numeric',
 				'encodedby_id' => 'required',
+				'unit_cost' => 'required|numeric',
+				'unit_total' => 'required|numeric',
 			);
 			$this->sanitize_array = array(
 				'issuance_id' => 'sanitize_string',
@@ -385,6 +401,8 @@ class Program_item_usageController extends SecureController{
 				'remarks' => 'sanitize_string',
 				'stock_movement_id' => 'sanitize_string',
 				'encodedby_id' => 'sanitize_string',
+				'unit_cost' => 'sanitize_string',
+				'unit_total' => 'sanitize_string',
 			);
 			$this->filter_rules = true; //filter validation rules by excluding fields not in the formdata
 			$modeldata = $this->modeldata = $this->validate_form($postdata);

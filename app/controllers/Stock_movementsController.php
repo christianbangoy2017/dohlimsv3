@@ -48,7 +48,6 @@ class Stock_movementsController extends SecureController{
 				stock_movements.batch_id LIKE ? OR 
 				stock_movements.source_location_id LIKE ? OR 
 				stock_movements.destination_pm_id LIKE ? OR 
-				stock_movements.encoded_by LIKE ? OR 
 				stock_movements.created_at LIKE ? OR 
 				stock_movements.updated_at LIKE ? OR 
 				stock_movements.deleted_at LIKE ? OR 
@@ -110,7 +109,7 @@ class Stock_movementsController extends SecureController{
 				stock_movements_reasons.description LIKE ?
 			)";
 			$search_params = array(
-				"%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%"
+				"%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%"
 			);
 			//setting search conditions
 			$db->where($search_condition, $search_params);
@@ -233,12 +232,8 @@ class Stock_movementsController extends SecureController{
 				'transaction_date' => 'required',
 				'batch_id' => 'required',
 				'movement_type' => 'required',
-				'movement_reason_id' => 'required',
 				'quantity' => 'required|numeric',
-				'source_location_id' => 'required',
 				'destination_pm_id' => 'required',
-				'reference_no' => 'required',
-				'remarks' => 'required',
 				'encodedby_id' => 'required',
 			);
 			$this->sanitize_array = array(
@@ -289,12 +284,8 @@ class Stock_movementsController extends SecureController{
 				'transaction_date' => 'required',
 				'batch_id' => 'required',
 				'movement_type' => 'required',
-				'movement_reason_id' => 'required',
 				'quantity' => 'required|numeric',
-				'source_location_id' => 'required',
 				'destination_pm_id' => 'required',
-				'reference_no' => 'required',
-				'remarks' => 'required',
 				'encodedby_id' => 'required',
 			);
 			$this->sanitize_array = array(
@@ -372,12 +363,8 @@ class Stock_movementsController extends SecureController{
 				'transaction_date' => 'required',
 				'batch_id' => 'required',
 				'movement_type' => 'required',
-				'movement_reason_id' => 'required',
 				'quantity' => 'required|numeric',
-				'source_location_id' => 'required',
 				'destination_pm_id' => 'required',
-				'reference_no' => 'required',
-				'remarks' => 'required',
 				'encodedby_id' => 'required',
 			);
 			$this->sanitize_array = array(

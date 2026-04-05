@@ -24,6 +24,9 @@ class Vw_stock_movements_at_programController extends SecureController{
 			"vw_stock_movements_at_program.item_code", 
 			"vw_stock_movements_at_program.item_name", 
 			"vw_stock_movements_at_program.initialqty", 
+			"vw_stock_movements_at_program.unit_of_measure", 
+			"vw_stock_movements_at_program.unit_cost", 
+			"vw_stock_movements_at_program.unit_total", 
 			"program_item_balance.total_used AS program_item_balance_total_used", 
 			"program_item_balance.remainingqty AS program_item_balance_remainingqty", 
 			"vw_stock_movements_at_program.expiry_date", 
@@ -43,6 +46,9 @@ class Vw_stock_movements_at_programController extends SecureController{
 				vw_stock_movements_at_program.item_code LIKE ? OR 
 				vw_stock_movements_at_program.item_name LIKE ? OR 
 				vw_stock_movements_at_program.initialqty LIKE ? OR 
+				vw_stock_movements_at_program.unit_of_measure LIKE ? OR 
+				vw_stock_movements_at_program.unit_cost LIKE ? OR 
+				vw_stock_movements_at_program.unit_total LIKE ? OR 
 				program_item_balance.total_used LIKE ? OR 
 				program_item_balance.remainingqty LIKE ? OR 
 				vw_stock_movements_at_program.expiry_date LIKE ? OR 
@@ -56,7 +62,7 @@ class Vw_stock_movements_at_programController extends SecureController{
 				program_item_balance.last_updated LIKE ?
 			)";
 			$search_params = array(
-				"%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%"
+				"%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%"
 			);
 			//setting search conditions
 			$db->where($search_condition, $search_params);

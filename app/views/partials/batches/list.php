@@ -131,8 +131,10 @@ $show_pagination = $this->show_pagination;
                                                 <th  class="td-suppliers_supplier_name"> Supplier Name</th>
                                                 <th  class="td-items_item_name"> Item Name</th>
                                                 <th  class="td-items_generic_name"> Generic Name</th>
+                                                <th  class="td-unit_cost"> Unit Cost</th>
                                                 <th  class="td-initial_quantity"> Initial Qty</th>
                                                 <th  class="td-batches_remaining_remainingqty"> Remaining Qty</th>
+                                                <th  class="td-unit_total"> Unit Total</th>
                                                 <th class="td-btn"></th>
                                             </tr>
                                         </thead>
@@ -243,6 +245,21 @@ $show_pagination = $this->show_pagination;
                                                             <?php echo $data['items_generic_name']; ?> 
                                                         </span>
                                                     </td>
+                                                    <td class="td-unit_cost">
+                                                        <span <?php if($can_edit){ ?> data-value="<?php echo $data['unit_cost']; ?>" 
+                                                            data-pk="<?php echo $data['id'] ?>" 
+                                                            data-url="<?php print_link("batches/editfield/" . urlencode($data['id'])); ?>" 
+                                                            data-name="unit_cost" 
+                                                            data-title="Enter Unit Cost" 
+                                                            data-placement="left" 
+                                                            data-toggle="click" 
+                                                            data-type="text" 
+                                                            data-mode="popover" 
+                                                            data-showbuttons="left" 
+                                                            class="is-editable" <?php } ?>>
+                                                            <?php echo $data['unit_cost']; ?> 
+                                                        </span>
+                                                    </td>
                                                     <td class="td-initial_quantity">
                                                         <span <?php if($can_edit){ ?> data-value="<?php echo $data['initial_quantity']; ?>" 
                                                             data-pk="<?php echo $data['id'] ?>" 
@@ -271,6 +288,22 @@ $show_pagination = $this->show_pagination;
                                                             data-showbuttons="left" 
                                                             class="is-editable" <?php } ?>>
                                                             <?php echo $data['batches_remaining_remainingqty']; ?> 
+                                                        </span>
+                                                    </td>
+                                                    <td class="td-unit_total">
+                                                        <span <?php if($can_edit){ ?> data-step="0.1" 
+                                                            data-value="<?php echo $data['unit_total']; ?>" 
+                                                            data-pk="<?php echo $data['id'] ?>" 
+                                                            data-url="<?php print_link("batches/editfield/" . urlencode($data['id'])); ?>" 
+                                                            data-name="unit_total" 
+                                                            data-title="Enter Unit Total" 
+                                                            data-placement="left" 
+                                                            data-toggle="click" 
+                                                            data-type="number" 
+                                                            data-mode="popover" 
+                                                            data-showbuttons="left" 
+                                                            class="is-editable" <?php } ?>>
+                                                            <?php echo $data['unit_total']; ?> 
                                                         </span>
                                                     </td>
                                                     <th class="td-btn">

@@ -86,67 +86,24 @@ $redirect_to = $this->redirect_to;
                                             </div>
                                             <div class="col-sm-8">
                                                 <div class="">
-                                                    <select required=""  id="ctrl-movement_type" name="movement_type"  placeholder="Select a value ..."    class="custom-select" >
-                                                        <option value="">Select a value ...</option>
-                                                        <?php
-                                                        $rec = $data['movement_type'];
-                                                        $movement_type_options = $comp_model -> stock_movements_movement_type_option_list();
-                                                        if(!empty($movement_type_options)){
-                                                        foreach($movement_type_options as $option){
-                                                        $value = (!empty($option['value']) ? $option['value'] : null);
-                                                        $label = (!empty($option['label']) ? $option['label'] : $value);
-                                                        $selected = ( $value == $rec ? 'selected' : null );
-                                                        ?>
-                                                        <option 
-                                                            <?php echo $selected; ?> value="<?php echo $value; ?>"><?php echo $label; ?>
-                                                        </option>
-                                                        <?php
-                                                        }
-                                                        }
-                                                        ?>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group ">
-                                        <div class="row">
-                                            <div class="col-sm-4">
-                                                <label class="control-label" for="movement_reason_id">Movement Reason Id <span class="text-danger">*</span></label>
-                                            </div>
-                                            <div class="col-sm-8">
-                                                <div class="">
-                                                    <select required=""  id="ctrl-movement_reason_id" name="movement_reason_id"  placeholder="Select a value ..."    class="custom-select" >
-                                                        <option value="">Select a value ...</option>
-                                                        <?php
-                                                        $rec = $data['movement_reason_id'];
-                                                        $movement_reason_id_options = $comp_model -> stock_movements_movement_reason_id_option_list();
-                                                        if(!empty($movement_reason_id_options)){
-                                                        foreach($movement_reason_id_options as $option){
-                                                        $value = (!empty($option['value']) ? $option['value'] : null);
-                                                        $label = (!empty($option['label']) ? $option['label'] : $value);
-                                                        $selected = ( $value == $rec ? 'selected' : null );
-                                                        ?>
-                                                        <option 
-                                                            <?php echo $selected; ?> value="<?php echo $value; ?>"><?php echo $label; ?>
-                                                        </option>
+                                                    <?php
+                                                    $movement_type_options = Menu :: $movement_type;
+                                                    $field_value = $data['movement_type'];
+                                                    if(!empty($movement_type_options)){
+                                                    foreach($movement_type_options as $option){
+                                                    $value = $option['value'];
+                                                    $label = $option['label'];
+                                                    //check if value is among checked options
+                                                    $checked = $this->check_form_field_checked($field_value, $value);
+                                                    ?>
+                                                    <label class="custom-control custom-radio custom-control-inline">
+                                                        <input id="ctrl-movement_type" class="custom-control-input" <?php echo $checked ?>  value="<?php echo $value ?>" type="radio" required=""   name="movement_type" />
+                                                            <span class="custom-control-label"><?php echo $label ?></span>
+                                                        </label>
                                                         <?php
                                                         }
                                                         }
                                                         ?>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group ">
-                                        <div class="row">
-                                            <div class="col-sm-4">
-                                                <label class="control-label" for="quantity">Quantity <span class="text-danger">*</span></label>
-                                            </div>
-                                            <div class="col-sm-8">
-                                                <div class="">
-                                                    <input id="ctrl-quantity"  value="<?php  echo $data['quantity']; ?>" type="number" placeholder="Enter Quantity" step="1"  required="" name="quantity"  class="form-control " />
                                                     </div>
                                                 </div>
                                             </div>
@@ -154,17 +111,17 @@ $redirect_to = $this->redirect_to;
                                         <div class="form-group ">
                                             <div class="row">
                                                 <div class="col-sm-4">
-                                                    <label class="control-label" for="source_location_id">Source Location Id <span class="text-danger">*</span></label>
+                                                    <label class="control-label" for="movement_reason_id">Movement Reason Id </label>
                                                 </div>
                                                 <div class="col-sm-8">
                                                     <div class="">
-                                                        <select required=""  id="ctrl-source_location_id" name="source_location_id"  placeholder="Select a value ..."    class="custom-select" >
+                                                        <select  id="ctrl-movement_reason_id" name="movement_reason_id"  placeholder="Select a value ..."    class="custom-select" >
                                                             <option value="">Select a value ...</option>
                                                             <?php
-                                                            $rec = $data['source_location_id'];
-                                                            $source_location_id_options = $comp_model -> stock_movements_source_location_id_option_list();
-                                                            if(!empty($source_location_id_options)){
-                                                            foreach($source_location_id_options as $option){
+                                                            $rec = $data['movement_reason_id'];
+                                                            $movement_reason_id_options = $comp_model -> stock_movements_movement_reason_id_option_list();
+                                                            if(!empty($movement_reason_id_options)){
+                                                            foreach($movement_reason_id_options as $option){
                                                             $value = (!empty($option['value']) ? $option['value'] : null);
                                                             $label = (!empty($option['label']) ? $option['label'] : $value);
                                                             $selected = ( $value == $rec ? 'selected' : null );
@@ -184,41 +141,11 @@ $redirect_to = $this->redirect_to;
                                         <div class="form-group ">
                                             <div class="row">
                                                 <div class="col-sm-4">
-                                                    <label class="control-label" for="destination_pm_id">Destination Pm Id <span class="text-danger">*</span></label>
+                                                    <label class="control-label" for="quantity">Quantity <span class="text-danger">*</span></label>
                                                 </div>
                                                 <div class="col-sm-8">
                                                     <div class="">
-                                                        <select required=""  id="ctrl-destination_pm_id" name="destination_pm_id"  placeholder="Select a value ..."    class="custom-select" >
-                                                            <option value="">Select a value ...</option>
-                                                            <?php
-                                                            $rec = $data['destination_pm_id'];
-                                                            $destination_pm_id_options = $comp_model -> stock_movements_destination_pm_id_option_list();
-                                                            if(!empty($destination_pm_id_options)){
-                                                            foreach($destination_pm_id_options as $option){
-                                                            $value = (!empty($option['value']) ? $option['value'] : null);
-                                                            $label = (!empty($option['label']) ? $option['label'] : $value);
-                                                            $selected = ( $value == $rec ? 'selected' : null );
-                                                            ?>
-                                                            <option 
-                                                                <?php echo $selected; ?> value="<?php echo $value; ?>"><?php echo $label; ?>
-                                                            </option>
-                                                            <?php
-                                                            }
-                                                            }
-                                                            ?>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group ">
-                                            <div class="row">
-                                                <div class="col-sm-4">
-                                                    <label class="control-label" for="reference_no">Reference No <span class="text-danger">*</span></label>
-                                                </div>
-                                                <div class="col-sm-8">
-                                                    <div class="">
-                                                        <input id="ctrl-reference_no"  value="<?php  echo $data['reference_no']; ?>" type="text" placeholder="Enter Reference No"  required="" name="reference_no"  class="form-control " />
+                                                        <input id="ctrl-quantity"  value="<?php  echo $data['quantity']; ?>" type="number" placeholder="Enter Quantity" step="1"  required="" name="quantity"  class="form-control " />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -226,43 +153,115 @@ $redirect_to = $this->redirect_to;
                                             <div class="form-group ">
                                                 <div class="row">
                                                     <div class="col-sm-4">
-                                                        <label class="control-label" for="remarks">Remarks <span class="text-danger">*</span></label>
+                                                        <label class="control-label" for="source_location_id">Source Location Id </label>
                                                     </div>
                                                     <div class="col-sm-8">
                                                         <div class="">
-                                                            <textarea placeholder="Enter Remarks" id="ctrl-remarks"  required="" rows="5" name="remarks" class=" form-control"><?php  echo $data['remarks']; ?></textarea>
-                                                            <!--<div class="invalid-feedback animated bounceIn text-center">Please enter text</div>-->
+                                                            <select  id="ctrl-source_location_id" name="source_location_id"  placeholder="Select a value ..."    class="custom-select" >
+                                                                <option value="">Select a value ...</option>
+                                                                <?php
+                                                                $rec = $data['source_location_id'];
+                                                                $source_location_id_options = $comp_model -> stock_movements_source_location_id_option_list();
+                                                                if(!empty($source_location_id_options)){
+                                                                foreach($source_location_id_options as $option){
+                                                                $value = (!empty($option['value']) ? $option['value'] : null);
+                                                                $label = (!empty($option['label']) ? $option['label'] : $value);
+                                                                $selected = ( $value == $rec ? 'selected' : null );
+                                                                ?>
+                                                                <option 
+                                                                    <?php echo $selected; ?> value="<?php echo $value; ?>"><?php echo $label; ?>
+                                                                </option>
+                                                                <?php
+                                                                }
+                                                                }
+                                                                ?>
+                                                            </select>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <input id="ctrl-encodedby_id"  value="<?php  echo $data['encodedby_id']; ?>" type="hidden" placeholder="Enter Encodedby Id" list="encodedby_id_list"  required="" name="encodedby_id"  class="form-control " />
-                                                <datalist id="encodedby_id_list">
-                                                    <?php 
-                                                    $encodedby_id_options = $comp_model -> stock_movements_encodedby_id_option_list();
-                                                    if(!empty($encodedby_id_options)){
-                                                    foreach($encodedby_id_options as $option){
-                                                    $value = (!empty($option['value']) ? $option['value'] : null);
-                                                    $label = (!empty($option['label']) ? $option['label'] : $value);
-                                                    ?>
-                                                    <option value="<?php echo $value; ?>"><?php echo $label; ?></option>
-                                                    <?php
-                                                    }
-                                                    }
-                                                    ?>
-                                                </datalist>
+                                            <div class="form-group ">
+                                                <div class="row">
+                                                    <div class="col-sm-4">
+                                                        <label class="control-label" for="destination_pm_id">Destination Pm Id <span class="text-danger">*</span></label>
+                                                    </div>
+                                                    <div class="col-sm-8">
+                                                        <div class="">
+                                                            <select required=""  id="ctrl-destination_pm_id" name="destination_pm_id"  placeholder="Select a value ..."    class="custom-select" >
+                                                                <option value="">Select a value ...</option>
+                                                                <?php
+                                                                $rec = $data['destination_pm_id'];
+                                                                $destination_pm_id_options = $comp_model -> stock_movements_destination_pm_id_option_list();
+                                                                if(!empty($destination_pm_id_options)){
+                                                                foreach($destination_pm_id_options as $option){
+                                                                $value = (!empty($option['value']) ? $option['value'] : null);
+                                                                $label = (!empty($option['label']) ? $option['label'] : $value);
+                                                                $selected = ( $value == $rec ? 'selected' : null );
+                                                                ?>
+                                                                <option 
+                                                                    <?php echo $selected; ?> value="<?php echo $value; ?>"><?php echo $label; ?>
+                                                                </option>
+                                                                <?php
+                                                                }
+                                                                }
+                                                                ?>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="form-ajax-status"></div>
-                                            <div class="form-group text-center">
-                                                <button class="btn btn-primary" type="submit">
-                                                    Update
-                                                    <i class="material-icons">send</i>
-                                                </button>
-                                            </div>
-                                        </form>
+                                            <div class="form-group ">
+                                                <div class="row">
+                                                    <div class="col-sm-4">
+                                                        <label class="control-label" for="reference_no">Reference No </label>
+                                                    </div>
+                                                    <div class="col-sm-8">
+                                                        <div class="">
+                                                            <input id="ctrl-reference_no"  value="<?php  echo $data['reference_no']; ?>" type="text" placeholder="Enter Reference No"  name="reference_no"  class="form-control " />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group ">
+                                                    <div class="row">
+                                                        <div class="col-sm-4">
+                                                            <label class="control-label" for="remarks">Remarks </label>
+                                                        </div>
+                                                        <div class="col-sm-8">
+                                                            <div class="">
+                                                                <textarea placeholder="Enter Remarks" id="ctrl-remarks"  rows="5" name="remarks" class=" form-control"><?php  echo $data['remarks']; ?></textarea>
+                                                                <!--<div class="invalid-feedback animated bounceIn text-center">Please enter text</div>-->
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <input id="ctrl-encodedby_id"  value="<?php  echo $data['encodedby_id']; ?>" type="hidden" placeholder="Enter Encodedby Id" list="encodedby_id_list"  required="" name="encodedby_id"  class="form-control " />
+                                                    <datalist id="encodedby_id_list">
+                                                        <?php 
+                                                        $encodedby_id_options = $comp_model -> stock_movements_encodedby_id_option_list();
+                                                        if(!empty($encodedby_id_options)){
+                                                        foreach($encodedby_id_options as $option){
+                                                        $value = (!empty($option['value']) ? $option['value'] : null);
+                                                        $label = (!empty($option['label']) ? $option['label'] : $value);
+                                                        ?>
+                                                        <option value="<?php echo $value; ?>"><?php echo $label; ?></option>
+                                                        <?php
+                                                        }
+                                                        }
+                                                        ?>
+                                                    </datalist>
+                                                </div>
+                                                <div class="form-ajax-status"></div>
+                                                <div class="form-group text-center">
+                                                    <button class="btn btn-primary" type="submit">
+                                                        Update
+                                                        <i class="material-icons">send</i>
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </section>
+                    </section>

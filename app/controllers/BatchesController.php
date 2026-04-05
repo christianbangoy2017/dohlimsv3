@@ -25,9 +25,11 @@ class BatchesController extends SecureController{
 			"suppliers.supplier_name AS suppliers_supplier_name", 
 			"items.item_name AS items_item_name", 
 			"items.generic_name AS items_generic_name", 
+			"batches.unit_cost", 
 			"batches.initial_quantity", 
 			"batches.encodedby_id", 
-			"batches_remaining.remainingqty AS batches_remaining_remainingqty");
+			"batches_remaining.remainingqty AS batches_remaining_remainingqty", 
+			"batches.unit_total");
 		$pagination = $this->get_pagination(MAX_RECORD_COUNT); // get current pagination e.g array(page_number, page_limit)
 		//search table record
 		if(!empty($request->search)){
@@ -40,6 +42,7 @@ class BatchesController extends SecureController{
 				suppliers.supplier_name LIKE ? OR 
 				items.item_name LIKE ? OR 
 				items.generic_name LIKE ? OR 
+				batches.unit_cost LIKE ? OR 
 				batches.initial_quantity LIKE ? OR 
 				batches.supplier_id LIKE ? OR 
 				batches.expiry_date LIKE ? OR 
@@ -73,10 +76,11 @@ class BatchesController extends SecureController{
 				batches_remaining.batch_id LIKE ? OR 
 				batches_remaining.remainingqty LIKE ? OR 
 				batches_remaining.last_updated LIKE ? OR 
-				batches.is_deleted LIKE ?
+				batches.is_deleted LIKE ? OR 
+				batches.unit_total LIKE ?
 			)";
 			$search_params = array(
-				"%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%"
+				"%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%"
 			);
 			//setting search conditions
 			$db->where($search_condition, $search_params);
@@ -140,9 +144,12 @@ class BatchesController extends SecureController{
 			"suppliers.supplier_name AS suppliers_supplier_name", 
 			"items.item_name AS items_item_name", 
 			"items.generic_name AS items_generic_name", 
+			"batches.initial_quantity", 
+			"batches.unit_cost", 
 			"batches.expiry_date", 
 			"batches.item_id", 
-			"batches.encodedby_id");
+			"batches.encodedby_id", 
+			"batches.unit_total");
 		$allowed_roles = array ('program_manager', 'admin');
 		if(!in_array(strtolower(USER_ROLE), $allowed_roles)){
 		$db->where("batches.encodedby_id", get_active_user('id') );
@@ -158,6 +165,7 @@ class BatchesController extends SecureController{
 		$db->join("batches_remaining", "batches.id = batches_remaining.batch_id", "LEFT ");  
 		$record = $db->getOne($tablename, $fields );
 		if($record){
+			$record['expiry_date'] = format_date($record['expiry_date'],'m-d-Y');
 			$page_title = $this->view->page_title = "View  Batches";
 		$this->view->report_filename = date('Y-m-d') . '-' . $page_title;
 		$this->view->report_title = $page_title;
@@ -186,7 +194,7 @@ class BatchesController extends SecureController{
 			$tablename = $this->tablename;
 			$request = $this->request;
 			//fillable fields
-			$fields = $this->fields = array("received_date","item_id","supplier_id","batch_number","expiry_date","initial_quantity","encodedby_id");
+			$fields = $this->fields = array("received_date","item_id","supplier_id","batch_number","expiry_date","initial_quantity","encodedby_id","unit_cost","unit_total");
 			$postdata = $this->format_request_data($formdata);
 			$this->rules_array = array(
 				'received_date' => 'required',
@@ -196,6 +204,7 @@ class BatchesController extends SecureController{
 				'expiry_date' => 'required',
 				'initial_quantity' => 'required|numeric',
 				'encodedby_id' => 'required',
+				'unit_total' => 'required|numeric',
 			);
 			$this->sanitize_array = array(
 				'received_date' => 'sanitize_string',
@@ -205,6 +214,8 @@ class BatchesController extends SecureController{
 				'expiry_date' => 'sanitize_string',
 				'initial_quantity' => 'sanitize_string',
 				'encodedby_id' => 'sanitize_string',
+				'unit_cost' => 'sanitize_string',
+				'unit_total' => 'sanitize_string',
 			);
 			$this->filter_vals = true; //set whether to remove empty fields
 			$modeldata = $this->modeldata = $this->validate_form($postdata);
@@ -235,7 +246,7 @@ class BatchesController extends SecureController{
 		$this->rec_id = $rec_id;
 		$tablename = $this->tablename;
 		 //editable fields
-		$fields = $this->fields = array("id","received_date","item_id","supplier_id","batch_number","expiry_date","initial_quantity","encodedby_id");
+		$fields = $this->fields = array("id","received_date","item_id","supplier_id","batch_number","expiry_date","initial_quantity","encodedby_id","unit_cost","unit_total");
 		if($formdata){
 			$postdata = $this->format_request_data($formdata);
 			$this->rules_array = array(
@@ -246,6 +257,7 @@ class BatchesController extends SecureController{
 				'expiry_date' => 'required',
 				'initial_quantity' => 'required|numeric',
 				'encodedby_id' => 'required',
+				'unit_total' => 'required|numeric',
 			);
 			$this->sanitize_array = array(
 				'received_date' => 'sanitize_string',
@@ -255,6 +267,8 @@ class BatchesController extends SecureController{
 				'expiry_date' => 'sanitize_string',
 				'initial_quantity' => 'sanitize_string',
 				'encodedby_id' => 'sanitize_string',
+				'unit_cost' => 'sanitize_string',
+				'unit_total' => 'sanitize_string',
 			);
 			$modeldata = $this->modeldata = $this->validate_form($postdata);
 			$modeldata['updated_at'] = datetime_now();
@@ -307,7 +321,7 @@ class BatchesController extends SecureController{
 		$this->rec_id = $rec_id;
 		$tablename = $this->tablename;
 		//editable fields
-		$fields = $this->fields = array("id","received_date","item_id","supplier_id","batch_number","expiry_date","initial_quantity","encodedby_id");
+		$fields = $this->fields = array("id","received_date","item_id","supplier_id","batch_number","expiry_date","initial_quantity","encodedby_id","unit_cost","unit_total");
 		$page_error = null;
 		if($formdata){
 			$postdata = array();
@@ -323,6 +337,7 @@ class BatchesController extends SecureController{
 				'expiry_date' => 'required',
 				'initial_quantity' => 'required|numeric',
 				'encodedby_id' => 'required',
+				'unit_total' => 'required|numeric',
 			);
 			$this->sanitize_array = array(
 				'received_date' => 'sanitize_string',
@@ -332,6 +347,8 @@ class BatchesController extends SecureController{
 				'expiry_date' => 'sanitize_string',
 				'initial_quantity' => 'sanitize_string',
 				'encodedby_id' => 'sanitize_string',
+				'unit_cost' => 'sanitize_string',
+				'unit_total' => 'sanitize_string',
 			);
 			$this->filter_rules = true; //filter validation rules by excluding fields not in the formdata
 			$modeldata = $this->modeldata = $this->validate_form($postdata);

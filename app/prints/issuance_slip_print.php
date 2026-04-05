@@ -131,7 +131,7 @@ $html .= '
 <tr>
 <td align="center">'.$i.'</td>
 <td align="center">'.$item['qty'].'</td>
-<td align="center">'.$item['unit'].'</td>
+<td align="center">'.$item['unit_of_measure'].'</td>
 <td>'.$item['item_description'].'</td>
 <td align="right">'.number_format($item['unit_cost'],2).'</td>
 <td align="right">'.number_format($total,2).'</td>
@@ -193,6 +193,6 @@ Date
 
 $pdf->writeHTML($html,true,false,true,false,'');
 
-$pdf->Output("IssuanceSlip_".$slip['slip_no'].".pdf","I");
+$pdf->Output("IssuanceSlip_".$slip['slip_no'].".pdf","D");
 
 ?>
